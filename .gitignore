@@ -1,0 +1,12 @@
+# Claude Code 개인 설정 (팀에 공유하지 않는 것들)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# OS
+.DS_Store
+
+# OMC state
+.omc/
+
+# Playwright MCP logs
+.playwright-mcp/
