@@ -1,0 +1,61 @@
+---
+title: "Git Worktree"
+level: 11
+slug: "level-11-worktree"
+category: "고급"
+description: "격리된 작업 공간으로 병렬 브랜치 작업하기"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/worktrees"
+docsNote: "Worktree 상세 사용법은 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 20
+tags: ["git", "worktree", "격리", "병렬"]
+---
+
+## Worktree란?
+
+하나의 git 저장소에서 여러 브랜치를 **동시에 작업**할 수 있는 격리된 작업 공간.
+Claude 세션마다 독립된 파일 시스템을 제공한다.
+
+## 사용법
+
+```bash
+claude --worktree feature-auth    # 이름 지정
+claude -w bugfix-123              # 축약
+claude --worktree                 # 자동 이름 생성
+```
+
+## 위치와 브랜치
+
+- 생성 위치: `<repo>/.claude/worktrees/<name>`
+- 브랜치명: `worktree-<name>`
+- 기본 원격 브랜치에서 분기
+
+## 정리
+
+- **변경 없음**: 종료 시 worktree와 브랜치 자동 삭제
+- **변경 있음**: keep/remove 선택 프롬프트
+
+## Worktree 간 설정 공유
+
+같은 저장소에서 생성된 worktree들은 프로젝트 설정과 메모리를 공유한다:
+- `.claude/settings.json`, `.claude/rules/`, CLAUDE.md → 메인 저장소 것을 참조
+- 자동 메모리(`~/.claude/projects/`)도 동일 프로젝트로 인식되어 공유됨
+- 단, `CLAUDE.local.md`는 경로 기반이므로 worktree에 별도 생성 필요
+
+## 서브에이전트 Worktree
+
+에이전트 정의에서 격리 실행 가능:
+
+```yaml
+isolation: worktree
+```
+
+> 각 서브에이전트가 독립 worktree에서 작업
+
+## tmux와 함께 사용
+
+```bash
+claude --worktree feature --tmux   # worktree + tmux 세션 생성
+```

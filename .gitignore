@@ -10,3 +10,10 @@ CLAUDE.local.md
 
 # Playwright MCP logs
 .playwright-mcp/
+
+# Node.js
+node_modules/
+
+# Next.js
+web/.next/
+web/out/

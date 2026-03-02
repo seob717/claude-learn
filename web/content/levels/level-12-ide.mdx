@@ -1,0 +1,54 @@
+---
+title: "IDE 연동"
+level: 12
+slug: "level-12-ide"
+category: "고급"
+description: "VS Code, JetBrains IDE와의 연동 방법"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "IDE 확장 설치 가이드는 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 15
+tags: ["VS Code", "JetBrains", "IDE", "확장"]
+---
+
+## VS Code 확장
+
+**설치:** Extensions에서 "Claude Code" 검색
+
+### 주요 단축키
+
+| 단축키 | 동작 |
+|--------|------|
+| `Cmd+Esc` | Claude ↔ 에디터 포커스 전환 |
+| `Cmd+Shift+Esc` | 새 대화 탭 |
+| `Cmd+N` | 새 대화 (Claude 포커스 시) |
+| `Option+K` | 현재 선택 영역 @-멘션 삽입 |
+
+### 기능
+
+- 인라인 diff (수락/거부)
+- `@`-멘션 파일 참조 + 라인 범위 (`@file.ts#5-10`)
+- 복수 대화 탭/창
+- 플랜 모드, 자동 승인 모드
+- Chrome 브라우저 연동 (`@browser`)
+
+## JetBrains 플러그인
+
+**지원 IDE:** IntelliJ, PyCharm, WebStorm, GoLand, PhpStorm, Android Studio
+
+**설치:** JetBrains Marketplace에서 "Claude Code" 검색
+
+### 주요 단축키
+
+| 단축키 | 동작 |
+|--------|------|
+| `Cmd+Esc` | Claude Code 열기 |
+| `Cmd+Option+K` | 파일 레퍼런스 삽입 |
+
+### 기능
+
+- IDE 네이티브 diff 뷰어
+- 선택 영역 컨텍스트 공유
+- 진단 정보(린트, 구문 오류) 공유

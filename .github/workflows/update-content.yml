@@ -1,0 +1,183 @@
+name: Claude Code 학습 콘텐츠 자동 업데이트
+
+# 워크플로우 트리거 설정
+on:
+  # 매일 UTC 00:00 (한국 시간 KST 09:00)에 자동 실행
+  schedule:
+    - cron: '0 0 * * *'
+  # 수동 실행도 지원 (GitHub Actions 탭에서 "Run workflow" 버튼 클릭)
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: '버전 변경 여부와 무관하게 강제로 콘텐츠 업데이트 실행'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  check-and-update:
+    name: 릴리즈 확인 및 콘텐츠 업데이트
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1단계: 저장소 코드를 체크아웃합니다
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          # PR 생성을 위해 전체 히스토리가 필요합니다
+          fetch-depth: 0
+
+      # 2단계: 스크립트 실행에 필요한 jq 도구를 설치합니다
+      - name: jq 설치 확인
+        run: |
+          # jq는 GitHub Actions ubuntu-latest에 기본 포함되어 있지만 명시적으로 확인합니다
+          jq --version
+
+      # 3단계: Claude Code 릴리즈 변경 여부를 확인합니다
+      - name: Claude Code 릴리즈 확인
+        id: check_release
+        run: |
+          # 스크립트에 실행 권한을 부여합니다
+          chmod +x scripts/check-claude-releases.sh
+
+          # 릴리즈 체크 스크립트를 실행하고 결과를 캡처합니다
+          RESULT=$(bash scripts/check-claude-releases.sh)
+          echo "check_result=$RESULT" >> $GITHUB_OUTPUT
+
+          # 저장된 최신 버전을 읽어옵니다 (스크립트가 /tmp에 저장)
+          if [ -f "/tmp/claude-code-last-version.txt" ]; then
+            LATEST_VERSION=$(cat /tmp/claude-code-last-version.txt)
+            echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+            echo "감지된 최신 버전: $LATEST_VERSION"
+          fi
+
+          echo "릴리즈 체크 결과: $RESULT"
+
+      # 4단계: 버전이 변경된 경우에만 Claude Code CLI를 설치합니다
+      # force_update가 true이거나 check_result가 "changed"일 때 실행합니다
+      - name: Claude Code CLI 설치
+        if: |
+          steps.check_release.outputs.check_result == 'changed' ||
+          inputs.force_update == true
+        run: |
+          echo "Claude Code CLI 설치 중..."
+          # npm을 통해 Claude Code CLI를 전역으로 설치합니다
+          npm install -g @anthropic/claude-code
+          # 설치 확인
+          claude --version
+
+      # 5단계: 프롬프트 템플릿의 변수를 실제 값으로 치환하고
+      #         claude -p 명령어로 콘텐츠를 생성합니다
+      - name: 콘텐츠 생성/업데이트
+        if: |
+          steps.check_release.outputs.check_result == 'changed' ||
+          inputs.force_update == true
+        env:
+          # Anthropic API 키는 GitHub Secrets에서 가져옵니다
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # 감지된 최신 버전
+          LATEST_VERSION: ${{ steps.check_release.outputs.latest_version }}
+        run: |
+          echo "콘텐츠 생성 시작 (버전: $LATEST_VERSION)"
+
+          # 변경 로그 URL을 구성합니다 (GitHub 릴리즈 페이지)
+          CHANGELOG_URL="https://github.com/anthropics/claude-code/releases/tag/${LATEST_VERSION}"
+
+          # 프롬프트 템플릿에서 변수를 실제 값으로 치환합니다
+          # sed를 사용하여 $VERSION과 $CHANGELOG_URL 플레이스홀더를 교체합니다
+          PROMPT=$(sed \
+            -e "s|\\\$VERSION|${LATEST_VERSION}|g" \
+            -e "s|\\\$CHANGELOG_URL|${CHANGELOG_URL}|g" \
+            scripts/generate-content-prompt.md)
+
+          # claude -p 명령어로 프롬프트를 실행하고 결과를 파일에 저장합니다
+          # -p: 비대화형 모드로 프롬프트를 실행합니다
+          echo "$PROMPT" | claude -p --output-format text > /tmp/generated-content.txt
+
+          echo "콘텐츠 생성 완료"
+          echo "--- 생성된 내용 미리보기 (처음 50줄) ---"
+          head -50 /tmp/generated-content.txt
+
+      # 6단계: 생성된 콘텐츠를 파싱하여 실제 MDX 파일로 저장합니다
+      - name: 생성된 콘텐츠를 파일로 저장
+        if: |
+          steps.check_release.outputs.check_result == 'changed' ||
+          inputs.force_update == true
+        run: |
+          # 생성된 콘텐츠에서 파일 경로와 내용을 추출하여 실제 파일을 생성합니다
+          # Claude의 출력 형식: "파일 경로: web/content/levels/level-N-xxx.mdx" 다음에 코드 블록
+          python3 << 'EOF'
+          import re
+          import os
+
+          with open('/tmp/generated-content.txt', 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          # MDX 코드 블록을 찾아 파일로 저장합니다
+          # 패턴: 파일 경로 언급 후 ```mdx ... ``` 블록
+          file_pattern = re.compile(
+              r'`(web/content/levels/level-\d+[^`]*\.mdx)`[^\n]*\n.*?```(?:mdx)?\n(.*?)```',
+              re.DOTALL
+          )
+
+          matches = file_pattern.findall(content)
+          if matches:
+              for filepath, file_content in matches:
+                  # 디렉토리가 없으면 생성합니다
+                  os.makedirs(os.path.dirname(filepath), exist_ok=True)
+                  with open(filepath, 'w', encoding='utf-8') as f:
+                      f.write(file_content)
+                  print(f"파일 생성됨: {filepath}")
+          else:
+              print("생성된 MDX 파일을 찾지 못했습니다. 원본 출력을 확인하세요.")
+              print("수동 검토가 필요할 수 있습니다.")
+          EOF
+
+      # 7단계: 변경된 파일로 Pull Request를 자동 생성합니다
+      - name: Pull Request 생성
+        if: |
+          steps.check_release.outputs.check_result == 'changed' ||
+          inputs.force_update == true
+        uses: peter-evans/create-pull-request@v6
+        with:
+          # GitHub 토큰으로 PR 생성 권한을 인증합니다
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # 변경 사항을 커밋할 새 브랜치 이름
+          branch: auto-update/claude-code-${{ steps.check_release.outputs.latest_version }}
+          # 중복 PR 방지를 위해 같은 브랜치가 있으면 덮어씁니다
+          delete-branch: true
+          # 커밋 메시지
+          commit-message: |
+            feat: Claude Code ${{ steps.check_release.outputs.latest_version }} 학습 콘텐츠 업데이트
+
+            Claude Code 새 버전 릴리즈에 따른 학습 콘텐츠 자동 업데이트
+            - 버전: ${{ steps.check_release.outputs.latest_version }}
+            - 변경 로그: https://github.com/anthropics/claude-code/releases/tag/${{ steps.check_release.outputs.latest_version }}
+          # PR 제목
+          title: '학습 콘텐츠 업데이트: Claude Code ${{ steps.check_release.outputs.latest_version }}'
+          # PR 본문
+          body: |
+            ## 자동 생성된 PR
+
+            Claude Code **${{ steps.check_release.outputs.latest_version }}** 버전 출시에 따라 학습 콘텐츠가 자동으로 업데이트되었습니다.
+
+            ### 변경 사항
+            - Claude Code 새 기능을 반영한 MDX 콘텐츠 생성/업데이트
+            - 변경 로그 기반 신규 학습 레벨 추가 (해당하는 경우)
+
+            ### 참고 링크
+            - [릴리즈 노트](https://github.com/anthropics/claude-code/releases/tag/${{ steps.check_release.outputs.latest_version }})
+
+            ### 검토 사항
+            - [ ] 생성된 콘텐츠가 정확한지 확인
+            - [ ] 코드 예시가 실제로 동작하는지 확인
+            - [ ] 한국어 표현이 자연스러운지 확인
+            - [ ] 기존 레벨과의 연결이 자연스러운지 확인
+
+            > 이 PR은 GitHub Actions 워크플로우에 의해 자동으로 생성되었습니다.
+          # PR 라벨 (저장소에 해당 라벨이 없으면 생성됩니다)
+          labels: |
+            automated-update
+            learning-content
+          # PR 초안으로 생성 (검토 후 머지)
+          draft: true

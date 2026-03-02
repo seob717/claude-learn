@@ -1,0 +1,1380 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e32]:
+    - generic [ref=e33]:
+      - link "Roadmap Logo" [ref=e34] [cursor=pointer]:
+        - /url: /
+        - img [ref=e35]
+      - navigation "Main" [ref=e38]:
+        - list [ref=e40]:
+          - listitem [ref=e41]:
+            - button "Open Navigation Dropdown" [ref=e42] [cursor=pointer]:
+              - img [ref=e43]
+          - listitem [ref=e44]:
+            - button "Open Navigation Dropdown" [ref=e45] [cursor=pointer]:
+              - text: Roadmaps
+              - img [ref=e46]
+          - listitem [ref=e48]:
+            - button "Open Navigation Dropdown" [ref=e49] [cursor=pointer]:
+              - text: AI Tutor
+              - img [ref=e50]
+          - listitem [ref=e52]:
+            - link "Upgrade to Pro" [ref=e53] [cursor=pointer]:
+              - /url: /premium
+              - img [ref=e54]
+              - text: Upgrade to Pro
+    - generic [ref=e56]:
+      - link "Login" [ref=e57] [cursor=pointer]:
+        - /url: /login
+      - link "Sign Up" [ref=e58] [cursor=pointer]:
+        - /url: /signup
+        - generic [ref=e59]: Sign Up
+  - generic [ref=e61]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - heading "Community Roadmaps" [level=2] [ref=e65]
+        - paragraph [ref=e66]: This is a custom roadmap made by a community member and is not verified by roadmap.sh
+        - paragraph [ref=e67]:
+          - link "Visit Official Roadmaps" [ref=e68] [cursor=pointer]:
+            - /url: /roadmaps
+            - img [ref=e69]
+            - text: Visit Official Roadmaps
+          - link "Community Roadmaps" [ref=e72] [cursor=pointer]:
+            - /url: /community
+            - img [ref=e73]
+            - text: Community Roadmaps
+          - link "AI Generated Roadmaps" [ref=e78] [cursor=pointer]:
+            - /url: /ai-roadmaps/explore
+            - img [ref=e79]
+            - text: AI Generated Roadmaps
+        - img
+      - generic [ref=e87]:
+        - img "Javi Canales" [ref=e88]
+        - generic [ref=e89]: Created by Javi Canales
+      - generic [ref=e90]:
+        - heading "Claude Code" [level=1] [ref=e91]
+        - paragraph [ref=e92]: Step-by-step guide to become a Claude Code Developer
+      - generic [ref=e94]:
+        - link "Back to All Roadmaps" [ref=e95] [cursor=pointer]:
+          - /url: /community
+          - text: ← Discover more
+        - button "Share Roadmap" [ref=e96] [cursor=pointer]:
+          - img [ref=e97]
+      - generic [ref=e104]:
+        - paragraph [ref=e105]:
+          - generic [ref=e106]: 0% Done
+          - button "Login to track your progress" [ref=e107] [cursor=pointer]
+        - button "Track Progress" [ref=e109] [cursor=pointer]:
+          - img [ref=e110]
+          - text: Track Progress
+    - application [ref=e114]:
+      - generic [ref=e116]:
+        - generic:
+          - generic:
+            - img:
+              - img "Edge from IUSgamqbfkB1SaffnTRAa to RqfeqVMhTSdC4w4GcsETP" [ref=e117] [cursor=pointer]
+            - img:
+              - img "Edge from RqfeqVMhTSdC4w4GcsETP to SKkeuO_5B18AbxlNGeazN" [ref=e120] [cursor=pointer]
+            - img:
+              - img "Edge from RqfeqVMhTSdC4w4GcsETP to e12uqC2SEzaMfmBbz7VZf" [ref=e123] [cursor=pointer]
+            - img:
+              - img "Edge from RqfeqVMhTSdC4w4GcsETP to p-UdUu9vB8K6--Ixh7cyq"
+            - img:
+              - img "Edge from LBMeG3sdY6IAJ7EoZBQ_K to Za475U5_cHa7NKcZkBxpZ" [ref=e126] [cursor=pointer]
+            - img:
+              - img "Edge from yBuxD0J4Er68_xFeX-wyo to 29xiIXYlB0bjXKA794qap" [ref=e129] [cursor=pointer]
+            - img:
+              - img "Edge from thR8GUbuAkEL4sb4m3llJ to xunB7AVg6gAoDEyjJC-E1" [ref=e132] [cursor=pointer]
+            - img:
+              - img "Edge from VnqqZ23AV7Xc0VQLFNYGJ to _Un0jTJaFs5Pdn1DFGl61"
+            - img:
+              - img "Edge from VnqqZ23AV7Xc0VQLFNYGJ to af6kif1uEKn5jKO-xXIZg" [ref=e135] [cursor=pointer]
+            - img:
+              - img "Edge from VnqqZ23AV7Xc0VQLFNYGJ to LBMeG3sdY6IAJ7EoZBQ_K" [ref=e138] [cursor=pointer]
+            - img:
+              - img "Edge from Za475U5_cHa7NKcZkBxpZ to wd9T37TIM_1JU4o_2Fb0h" [ref=e141] [cursor=pointer]
+            - img:
+              - img "Edge from Za475U5_cHa7NKcZkBxpZ to wipwhNuUy7OenN1X0YzMd" [ref=e144] [cursor=pointer]
+            - img:
+              - img "Edge from 29xiIXYlB0bjXKA794qap to svhWAC463Y9CUkFb524Fd" [ref=e147] [cursor=pointer]
+            - img:
+              - img "Edge from 29xiIXYlB0bjXKA794qap to abpHRjM77J6p-q_kSY1hj"
+            - img:
+              - img "Edge from 29xiIXYlB0bjXKA794qap to _iAIq8mwW0cIGbvrfmSJ5"
+            - img:
+              - img "Edge from _iAIq8mwW0cIGbvrfmSJ5 to rlj-GMcqgdKM5_7rs7yz9" [ref=e150] [cursor=pointer]
+            - img:
+              - img "Edge from _iAIq8mwW0cIGbvrfmSJ5 to y8VCGx-h97udP-dRzsSAI" [ref=e153] [cursor=pointer]
+            - img:
+              - img "Edge from TCWd5vobMAhP7I97Q1rTq to 7ZD0nOke-7vqaibxBx24Y" [ref=e156] [cursor=pointer]
+            - img:
+              - img "Edge from TCWd5vobMAhP7I97Q1rTq to Ho_DTKqMZnx_nlxjWfrW2" [ref=e159] [cursor=pointer]
+            - img:
+              - img "Edge from TCWd5vobMAhP7I97Q1rTq to Cib319Wz8OSmBv-IXLpzU" [ref=e162] [cursor=pointer]
+            - img:
+              - img "Edge from TCWd5vobMAhP7I97Q1rTq to iODFigvV1w4KuZAsmaQLW" [ref=e165] [cursor=pointer]
+            - img:
+              - img "Edge from _iAIq8mwW0cIGbvrfmSJ5 to TCWd5vobMAhP7I97Q1rTq"
+            - img:
+              - img "Edge from TCWd5vobMAhP7I97Q1rTq to OJIfG7DRO4jgQEcberkNx"
+            - img:
+              - img "Edge from 6WsAQV_e_2XJKl2KlN2dl to OJIfG7DRO4jgQEcberkNx" [ref=e168] [cursor=pointer]
+            - img:
+              - img "Edge from hi1X0qEqfmLzYMHRK-l3v to OJIfG7DRO4jgQEcberkNx"
+            - img:
+              - img "Edge from 5uIBv9rk7Wzc_bXny0B27 to OJIfG7DRO4jgQEcberkNx" [ref=e171] [cursor=pointer]
+            - img:
+              - img "Edge from stqfKUOYCQYFimjMea5aN to OJIfG7DRO4jgQEcberkNx" [ref=e174] [cursor=pointer]
+            - img:
+              - img "Edge from OJIfG7DRO4jgQEcberkNx to EsbasCHDQOBZcBfHIrTbE"
+            - img:
+              - img "Edge from rGtz0Nw4BgOrdm3WUmjwZ to yBuxD0J4Er68_xFeX-wyo" [ref=e177] [cursor=pointer]
+            - img:
+              - img "Edge from y8VCGx-h97udP-dRzsSAI to Dutj1C19nrbonQ7OpqBnv"
+            - img:
+              - img "Edge from OJIfG7DRO4jgQEcberkNx to O28tDE-AZIlJggFek916u" [ref=e180] [cursor=pointer]
+            - img:
+              - img "Edge from EsbasCHDQOBZcBfHIrTbE to _odkqXL_2hCw1hBJBnhIc" [ref=e183] [cursor=pointer]
+            - img:
+              - img "Edge from EsbasCHDQOBZcBfHIrTbE to HnrD1-Wc39ZRH5R6bptqX"
+            - img:
+              - img "Edge from EsbasCHDQOBZcBfHIrTbE to bwLAftlU0RsruJBGs3qVI" [ref=e186] [cursor=pointer]
+            - img:
+              - img "Edge from EsbasCHDQOBZcBfHIrTbE to 801KNtjf61FTiLS1yrDSB"
+            - img:
+              - img "Edge from uC2PkMsCK-vaBo5Ygha2P to 801KNtjf61FTiLS1yrDSB" [ref=e189] [cursor=pointer]
+            - img:
+              - img "Edge from 801KNtjf61FTiLS1yrDSB to 1HSW-GE3jNuCQE7bB3OuT" [ref=e192] [cursor=pointer]
+            - img:
+              - img "Edge from 801KNtjf61FTiLS1yrDSB to nq8aLrgh7qNQnwZbS7d9Z" [ref=e195] [cursor=pointer]
+            - img:
+              - img "Edge from 801KNtjf61FTiLS1yrDSB to Gwsh4g1SxI2hJcS84p9it" [ref=e198] [cursor=pointer]
+            - img:
+              - img "Edge from g8tfghSzj-fAcf90emE8c to rGtz0Nw4BgOrdm3WUmjwZ"
+            - img:
+              - img "Edge from Fi4CS61agZ6wZ8KCAWA5B to rGtz0Nw4BgOrdm3WUmjwZ"
+            - img:
+              - img "Edge from SCbZprU9r8BIX4BoyjYPE to 8fXu3OX3xfwr3NTAIHU0z" [ref=e201] [cursor=pointer]
+            - img:
+              - img "Edge from __3S2Z00hK_g_GQJxv_21 to 8fXu3OX3xfwr3NTAIHU0z" [ref=e204] [cursor=pointer]
+            - img:
+              - img "Edge from 8fXu3OX3xfwr3NTAIHU0z to cdO7pKphZq1qvCeynxGKo" [ref=e207] [cursor=pointer]
+            - img:
+              - img "Edge from 8fXu3OX3xfwr3NTAIHU0z to Dam_IG339RrYZXjXq3T8_" [ref=e210] [cursor=pointer]
+            - img:
+              - img "Edge from ip2bq52qRah-7db6dORO8 to FP6Lc-zqmP8yzBytuSsUc" [ref=e213] [cursor=pointer]
+            - img:
+              - img "Edge from ip2bq52qRah-7db6dORO8 to wxkAkdKFTwbNJEfwA9tGl"
+            - img:
+              - img "Edge from ip2bq52qRah-7db6dORO8 to 1B0oHIa2h7X9jKmQrcYga" [ref=e216] [cursor=pointer]
+            - img:
+              - img "Edge from ip2bq52qRah-7db6dORO8 to fI90DtG5CoZbDyJUqLGoy" [ref=e219] [cursor=pointer]
+            - img:
+              - img "Edge from 8fXu3OX3xfwr3NTAIHU0z to -P9o-aiDM7CDtLimppkjM" [ref=e222] [cursor=pointer]
+            - img:
+              - img "Edge from 8fXu3OX3xfwr3NTAIHU0z to YjRDJcSK_h82DooDWY2k4" [ref=e225] [cursor=pointer]
+            - img:
+              - img "Edge from Tq83zphFUA1J8spMEyN8H to 8fXu3OX3xfwr3NTAIHU0z"
+            - img:
+              - img "Edge from 801KNtjf61FTiLS1yrDSB to _NcZhE2ZuKl1Lrtvr6X2G" [ref=e228] [cursor=pointer]
+            - img:
+              - img "Edge from _NcZhE2ZuKl1Lrtvr6X2G to OBtJvLaEV3giUhvGFofKv"
+            - img:
+              - img "Edge from thR8GUbuAkEL4sb4m3llJ to rIG8F-Rc-fMeXZ5n0UTwi" [ref=e231] [cursor=pointer]
+          - generic:
+            - generic [ref=e249]:
+              - button [ref=e250] [cursor=pointer]:
+                - img [ref=e251]
+              - button [ref=e254]:
+                - img [ref=e255]
+            - generic [ref=e263]:
+              - img [ref=e264]
+              - generic [ref=e271]:
+                - button [ref=e272] [cursor=pointer]:
+                  - img [ref=e273]
+                - button [ref=e276]:
+                  - img [ref=e277]
+            - generic [ref=e285]:
+              - img [ref=e286]
+              - generic [ref=e293]:
+                - button [ref=e294] [cursor=pointer]:
+                  - img [ref=e295]
+                - button [ref=e298]:
+                  - img [ref=e299]
+            - generic [ref=e307]:
+              - img [ref=e308]
+              - generic [ref=e315]:
+                - button [ref=e316] [cursor=pointer]:
+                  - img [ref=e317]
+                - button [ref=e320]:
+                  - img [ref=e321]
+            - generic [ref=e329]:
+              - img [ref=e331]
+              - generic [ref=e338]:
+                - button [ref=e339] [cursor=pointer]:
+                  - img [ref=e340]
+                - button [ref=e343]:
+                  - img [ref=e344]
+            - generic [ref=e352]:
+              - img [ref=e353]
+              - generic [ref=e360]:
+                - button [ref=e361] [cursor=pointer]:
+                  - img [ref=e362]
+                - button [ref=e365]:
+                  - img [ref=e366]
+            - generic [ref=e374]:
+              - img [ref=e375]
+              - generic [ref=e382]:
+                - button [ref=e383] [cursor=pointer]:
+                  - img [ref=e384]
+                - button [ref=e387]:
+                  - img [ref=e388]
+            - generic [ref=e396]:
+              - img [ref=e397]
+              - generic [ref=e404]:
+                - button [ref=e405] [cursor=pointer]:
+                  - img [ref=e406]
+                - button [ref=e409]:
+                  - img [ref=e410]
+            - generic [ref=e418]:
+              - img [ref=e420]
+              - generic [ref=e427]:
+                - button [ref=e428] [cursor=pointer]:
+                  - img [ref=e429]
+                - button [ref=e432]:
+                  - img [ref=e433]
+            - generic [ref=e455]:
+              - button [ref=e456] [cursor=pointer]:
+                - img [ref=e457]
+              - button [ref=e460]:
+                - img [ref=e461]
+            - generic [ref=e469]:
+              - img [ref=e470]
+              - generic [ref=e477]:
+                - button [ref=e478] [cursor=pointer]:
+                  - img [ref=e479]
+                - button [ref=e482]:
+                  - img [ref=e483]
+            - generic [ref=e491]:
+              - generic [ref=e492]: Claude Code
+              - generic [ref=e501]:
+                - button [ref=e502] [cursor=pointer]:
+                  - img [ref=e503]
+                - button [ref=e506]:
+                  - img [ref=e507]
+            - generic [ref=e515]:
+              - generic [ref=e516] [cursor=pointer]: What is vibe coding?
+              - generic [ref=e525]:
+                - button [ref=e526] [cursor=pointer]:
+                  - img [ref=e527]
+                - button [ref=e530]:
+                  - img [ref=e531]
+            - generic [ref=e539]:
+              - generic [ref=e540] [cursor=pointer]: What is a code agent?
+              - generic [ref=e549]:
+                - button [ref=e550] [cursor=pointer]:
+                  - img [ref=e551]
+                - button [ref=e554]:
+                  - img [ref=e555]
+            - generic [ref=e563]:
+              - generic [ref=e564] [cursor=pointer]: What is Claude?
+              - generic [ref=e573]:
+                - button [ref=e574] [cursor=pointer]:
+                  - img [ref=e575]
+                - button [ref=e578]:
+                  - img [ref=e579]
+            - generic [ref=e587]:
+              - generic [ref=e588] [cursor=pointer]: Introduction
+              - generic [ref=e597]:
+                - button [ref=e598] [cursor=pointer]:
+                  - img [ref=e599]
+                - button [ref=e602]:
+                  - img [ref=e603]
+            - generic [ref=e611]:
+              - generic [ref=e612] [cursor=pointer]: Claude CLI
+              - generic [ref=e621]:
+                - button [ref=e622] [cursor=pointer]:
+                  - img [ref=e623]
+                - button [ref=e626]:
+                  - img [ref=e627]
+            - generic [ref=e635]:
+              - generic [ref=e636] [cursor=pointer]: Other environments
+              - generic [ref=e645]:
+                - button [ref=e646] [cursor=pointer]:
+                  - img [ref=e647]
+                - button [ref=e650]:
+                  - img [ref=e651]
+            - generic [ref=e659]:
+              - generic [ref=e660] [cursor=pointer]: Subscription
+              - generic [ref=e669]:
+                - button [ref=e670] [cursor=pointer]:
+                  - img [ref=e671]
+                - button [ref=e674]:
+                  - img [ref=e675]
+            - generic [ref=e683]:
+              - generic [ref=e684] [cursor=pointer]: API usage
+              - generic [ref=e693]:
+                - button [ref=e694] [cursor=pointer]:
+                  - img [ref=e695]
+                - button [ref=e698]:
+                  - img [ref=e699]
+            - generic [ref=e707]:
+              - generic [ref=e708] [cursor=pointer]: Teams & Entreprises
+              - generic [ref=e717]:
+                - button [ref=e718] [cursor=pointer]:
+                  - img [ref=e719]
+                - button [ref=e722]:
+                  - img [ref=e723]
+            - generic [ref=e731]:
+              - generic [ref=e732] [cursor=pointer]: Setting up Claude Code
+              - generic [ref=e741]:
+                - button [ref=e742] [cursor=pointer]:
+                  - img [ref=e743]
+                - button [ref=e746]:
+                  - img [ref=e747]
+            - generic [ref=e755]:
+              - generic [ref=e756] [cursor=pointer]: Understanding Claude Code
+              - generic [ref=e765]:
+                - button [ref=e766] [cursor=pointer]:
+                  - img [ref=e767]
+                - button [ref=e770]:
+                  - img [ref=e771]
+            - generic [ref=e779]:
+              - generic [ref=e780] [cursor=pointer]: Models
+              - generic [ref=e789]:
+                - button [ref=e790] [cursor=pointer]:
+                  - img [ref=e791]
+                - button [ref=e794]:
+                  - img [ref=e795]
+            - generic [ref=e803]:
+              - generic [ref=e804] [cursor=pointer]: Tools
+              - generic [ref=e813]:
+                - button [ref=e814] [cursor=pointer]:
+                  - img [ref=e815]
+                - button [ref=e818]:
+                  - img [ref=e819]
+            - generic [ref=e827]:
+              - generic [ref=e828] [cursor=pointer]: Claude Architecture
+              - generic [ref=e837]:
+                - button [ref=e838] [cursor=pointer]:
+                  - img [ref=e839]
+                - button [ref=e842]:
+                  - img [ref=e843]
+            - generic [ref=e851]:
+              - generic [ref=e852] [cursor=pointer]: Context Window
+              - generic [ref=e861]:
+                - button [ref=e862] [cursor=pointer]:
+                  - img [ref=e863]
+                - button [ref=e866]:
+                  - img [ref=e867]
+            - generic [ref=e875]:
+              - generic [ref=e876] [cursor=pointer]: CLAUDE.md
+              - generic [ref=e885]:
+                - button [ref=e886] [cursor=pointer]:
+                  - img [ref=e887]
+                - button [ref=e890]:
+                  - img [ref=e891]
+            - generic [ref=e899]:
+              - generic [ref=e900] [cursor=pointer]: Skills
+              - generic [ref=e909]:
+                - button [ref=e910] [cursor=pointer]:
+                  - img [ref=e911]
+                - button [ref=e914]:
+                  - img [ref=e915]
+            - generic [ref=e923]:
+              - generic [ref=e924] [cursor=pointer]: Plugins
+              - generic [ref=e933]:
+                - button [ref=e934] [cursor=pointer]:
+                  - img [ref=e935]
+                - button [ref=e938]:
+                  - img [ref=e939]
+            - generic [ref=e947]:
+              - generic [ref=e948] [cursor=pointer]: Hooks
+              - generic [ref=e957]:
+                - button [ref=e958] [cursor=pointer]:
+                  - img [ref=e959]
+                - button [ref=e962]:
+                  - img [ref=e963]
+            - generic [ref=e971]:
+              - generic [ref=e972] [cursor=pointer]: Subagents
+              - generic [ref=e981]:
+                - button [ref=e982] [cursor=pointer]:
+                  - img [ref=e983]
+                - button [ref=e986]:
+                  - img [ref=e987]
+            - generic [ref=e995]:
+              - generic [ref=e996] [cursor=pointer]: MCP
+              - generic [ref=e1005]:
+                - button [ref=e1006] [cursor=pointer]:
+                  - img [ref=e1007]
+                - button [ref=e1010]:
+                  - img [ref=e1011]
+            - generic [ref=e1019]:
+              - generic [ref=e1020] [cursor=pointer]: Claude Code in Action
+              - generic [ref=e1029]:
+                - button [ref=e1030] [cursor=pointer]:
+                  - img [ref=e1031]
+                - button [ref=e1034]:
+                  - img [ref=e1035]
+            - generic [ref=e1043]:
+              - generic [ref=e1044] [cursor=pointer]: Using Claude Code
+              - generic [ref=e1053]:
+                - button [ref=e1054] [cursor=pointer]:
+                  - img [ref=e1055]
+                - button [ref=e1058]:
+                  - img [ref=e1059]
+            - generic [ref=e1067]:
+              - generic [ref=e1068] [cursor=pointer]: Applications
+              - generic [ref=e1077]:
+                - button [ref=e1078] [cursor=pointer]:
+                  - img [ref=e1079]
+                - button [ref=e1082]:
+                  - img [ref=e1083]
+            - generic [ref=e1091]:
+              - generic [ref=e1092] [cursor=pointer]: Headless mode
+              - generic [ref=e1101]:
+                - button [ref=e1102] [cursor=pointer]:
+                  - img [ref=e1103]
+                - button [ref=e1106]:
+                  - img [ref=e1107]
+            - generic [ref=e1115]:
+              - generic [ref=e1116] [cursor=pointer]: Multiple Claude
+              - generic [ref=e1125]:
+                - button [ref=e1126] [cursor=pointer]:
+                  - img [ref=e1127]
+                - button [ref=e1130]:
+                  - img [ref=e1131]
+            - generic [ref=e1139]:
+              - generic [ref=e1140] [cursor=pointer]: Sandboxing
+              - generic [ref=e1149]:
+                - button [ref=e1150] [cursor=pointer]:
+                  - img [ref=e1151]
+                - button [ref=e1154]:
+                  - img [ref=e1155]
+            - generic [ref=e1163]:
+              - generic [ref=e1164] [cursor=pointer]: Understand Claude Pricing
+              - generic [ref=e1173]:
+                - button [ref=e1174] [cursor=pointer]:
+                  - img [ref=e1175]
+                - button [ref=e1178]:
+                  - img [ref=e1179]
+            - generic [ref=e1187]:
+              - generic [ref=e1188] [cursor=pointer]: Be mindful of extensions
+              - generic [ref=e1197]:
+                - button [ref=e1198] [cursor=pointer]:
+                  - img [ref=e1199]
+                - button [ref=e1202]:
+                  - img [ref=e1203]
+            - generic [ref=e1211]:
+              - generic [ref=e1212] [cursor=pointer]: Use Thinking mode carefuly
+              - generic [ref=e1221]:
+                - button [ref=e1222] [cursor=pointer]:
+                  - img [ref=e1223]
+                - button [ref=e1226]:
+                  - img [ref=e1227]
+            - generic [ref=e1235]:
+              - generic [ref=e1236] [cursor=pointer]: Reduce token usage
+              - generic [ref=e1245]:
+                - button [ref=e1246] [cursor=pointer]:
+                  - img [ref=e1247]
+                - button [ref=e1250]:
+                  - img [ref=e1251]
+            - generic [ref=e1259]:
+              - generic [ref=e1260] [cursor=pointer]: Manage Context Window
+              - generic [ref=e1269]:
+                - button [ref=e1270] [cursor=pointer]:
+                  - img [ref=e1271]
+                - button [ref=e1274]:
+                  - img [ref=e1275]
+            - generic [ref=e1283]:
+              - generic [ref=e1284] [cursor=pointer]: Claude Cowork
+              - generic [ref=e1293]:
+                - button [ref=e1294] [cursor=pointer]:
+                  - img [ref=e1295]
+                - button [ref=e1298]:
+                  - img [ref=e1299]
+            - generic [ref=e1307]:
+              - generic [ref=e1308]: Related Roadmaps
+              - generic [ref=e1309]:
+                - button "Prompt Engineering Roadmap" [ref=e1310] [cursor=pointer]:
+                  - img [ref=e1312]
+                  - generic [ref=e1314]: Prompt Engineering Roadmap
+                - button "AI Engineer Roadmap" [ref=e1315] [cursor=pointer]:
+                  - img [ref=e1317]
+                  - generic [ref=e1319]: AI Engineer Roadmap
+                - button "AI Agents Roadmap" [ref=e1320] [cursor=pointer]:
+                  - img [ref=e1322]
+                  - generic [ref=e1324]: AI Agents Roadmap
+                - button "Git & Github Roadmap" [ref=e1325] [cursor=pointer]:
+                  - img [ref=e1327]
+                  - generic [ref=e1329]: Git & Github Roadmap
+                - button "Shell/Bash Roadmap" [ref=e1330] [cursor=pointer]:
+                  - img [ref=e1332]
+                  - generic [ref=e1334]: Shell/Bash Roadmap
+              - generic [ref=e1335]:
+                - button [ref=e1336] [cursor=pointer]:
+                  - img [ref=e1337]
+                - button [ref=e1340]:
+                  - img [ref=e1341]
+            - generic [ref=e1349]:
+              - paragraph [ref=e1350]: Find the detailed version of this roadmap along with other similar roadmaps
+              - generic [ref=e1359]:
+                - button [ref=e1360] [cursor=pointer]:
+                  - img [ref=e1361]
+                - button [ref=e1364]:
+                  - img [ref=e1365]
+            - generic [ref=e1373]:
+              - generic [ref=e1374] [cursor=pointer]: roadmap.sh
+              - generic [ref=e1383]:
+                - button [ref=e1384] [cursor=pointer]:
+                  - img [ref=e1385]
+                - button [ref=e1388]:
+                  - img [ref=e1389]
+            - generic [ref=e1397]:
+              - img [ref=e1398]
+              - generic [ref=e1405]:
+                - button [ref=e1406] [cursor=pointer]:
+                  - img [ref=e1407]
+                - button [ref=e1410]:
+                  - img [ref=e1411]
+            - generic [ref=e1419]:
+              - paragraph [ref=e1420]: Visit the following roadmaps to keep learning
+              - generic [ref=e1429]:
+                - button [ref=e1430] [cursor=pointer]:
+                  - img [ref=e1431]
+                - button [ref=e1434]:
+                  - img [ref=e1435]
+            - generic [ref=e1443]:
+              - generic [ref=e1444] [cursor=pointer]: AI Agents
+              - generic [ref=e1453]:
+                - button [ref=e1454] [cursor=pointer]:
+                  - img [ref=e1455]
+                - button [ref=e1458]:
+                  - img [ref=e1459]
+            - generic [ref=e1467]:
+              - generic [ref=e1468] [cursor=pointer]: AI Engineer
+              - generic [ref=e1477]:
+                - button [ref=e1478] [cursor=pointer]:
+                  - img [ref=e1479]
+                - button [ref=e1482]:
+                  - img [ref=e1483]
+            - generic [ref=e1491]:
+              - generic [ref=e1492] [cursor=pointer]: Prompt Engineering
+              - generic [ref=e1501]:
+                - button [ref=e1502] [cursor=pointer]:
+                  - img [ref=e1503]
+                - button [ref=e1506]:
+                  - img [ref=e1507]
+            - generic [ref=e1515]:
+              - generic [ref=e1516] [cursor=pointer]: Extending Claude Code
+              - generic [ref=e1525]:
+                - button [ref=e1526] [cursor=pointer]:
+                  - img [ref=e1527]
+                - button [ref=e1530]:
+                  - img [ref=e1531]
+            - generic [ref=e1539]:
+              - generic [ref=e1540] [cursor=pointer]: Prompt Engineering Roadmap
+              - generic [ref=e1549]:
+                - button [ref=e1550] [cursor=pointer]:
+                  - img [ref=e1551]
+                - button [ref=e1554]:
+                  - img [ref=e1555]
+            - generic [ref=e1563]:
+              - generic [ref=e1564] [cursor=pointer]: Where to Use Claude Code
+              - generic [ref=e1573]:
+                - button [ref=e1574] [cursor=pointer]:
+                  - img [ref=e1575]
+                - button [ref=e1578]:
+                  - img [ref=e1579]
+            - generic [ref=e1587]:
+              - generic [ref=e1588] [cursor=pointer]: Authentication
+              - generic [ref=e1597]:
+                - button [ref=e1598] [cursor=pointer]:
+                  - img [ref=e1599]
+                - button [ref=e1602]:
+                  - img [ref=e1603]
+            - generic [ref=e1611]:
+              - generic [ref=e1612] [cursor=pointer]: AI Agents
+              - generic [ref=e1621]:
+                - button [ref=e1622] [cursor=pointer]:
+                  - img [ref=e1623]
+                - button [ref=e1626]:
+                  - img [ref=e1627]
+            - generic [ref=e1635]:
+              - generic [ref=e1636] [cursor=pointer]: Agentic Loop
+              - generic [ref=e1645]:
+                - button [ref=e1646] [cursor=pointer]:
+                  - img [ref=e1647]
+                - button [ref=e1650]:
+                  - img [ref=e1651]
+            - generic [ref=e1659]:
+              - generic [ref=e1660] [cursor=pointer]: Opus
+              - generic [ref=e1669]:
+                - button [ref=e1670] [cursor=pointer]:
+                  - img [ref=e1671]
+                - button [ref=e1674]:
+                  - img [ref=e1675]
+            - generic [ref=e1683]:
+              - generic [ref=e1684] [cursor=pointer]: Sonnet
+              - generic [ref=e1693]:
+                - button [ref=e1694] [cursor=pointer]:
+                  - img [ref=e1695]
+                - button [ref=e1698]:
+                  - img [ref=e1699]
+            - generic [ref=e1707]:
+              - generic [ref=e1708] [cursor=pointer]: Haiku
+              - generic [ref=e1717]:
+                - button [ref=e1718] [cursor=pointer]:
+                  - img [ref=e1719]
+                - button [ref=e1722]:
+                  - img [ref=e1723]
+            - generic [ref=e1731]:
+              - generic [ref=e1732] [cursor=pointer]: claude
+              - generic [ref=e1741]:
+                - button [ref=e1742] [cursor=pointer]:
+                  - img [ref=e1743]
+                - button [ref=e1746]:
+                  - img [ref=e1747]
+            - generic [ref=e1755]:
+              - generic [ref=e1756] [cursor=pointer]: claude "query"
+              - generic [ref=e1765]:
+                - button [ref=e1766] [cursor=pointer]:
+                  - img [ref=e1767]
+                - button [ref=e1770]:
+                  - img [ref=e1771]
+            - generic [ref=e1779]:
+              - generic [ref=e1780] [cursor=pointer]: claude -p
+              - generic [ref=e1789]:
+                - button [ref=e1790] [cursor=pointer]:
+                  - img [ref=e1791]
+                - button [ref=e1794]:
+                  - img [ref=e1795]
+            - generic [ref=e1803]:
+              - generic [ref=e1804] [cursor=pointer]: claude -c
+              - generic [ref=e1813]:
+                - button [ref=e1814] [cursor=pointer]:
+                  - img [ref=e1815]
+                - button [ref=e1818]:
+                  - img [ref=e1819]
+            - generic [ref=e1827]:
+              - generic [ref=e1828] [cursor=pointer]: claude -r
+              - generic [ref=e1837]:
+                - button [ref=e1838] [cursor=pointer]:
+                  - img [ref=e1839]
+                - button [ref=e1842]:
+                  - img [ref=e1843]
+            - generic [ref=e1851]:
+              - generic [ref=e1852] [cursor=pointer]: /help
+              - generic [ref=e1861]:
+                - button [ref=e1862] [cursor=pointer]:
+                  - img [ref=e1863]
+                - button [ref=e1866]:
+                  - img [ref=e1867]
+            - generic [ref=e1875]:
+              - generic [ref=e1876] [cursor=pointer]: /clear
+              - generic [ref=e1885]:
+                - button [ref=e1886] [cursor=pointer]:
+                  - img [ref=e1887]
+                - button [ref=e1890]:
+                  - img [ref=e1891]
+            - generic [ref=e1899]:
+              - generic [ref=e1900] [cursor=pointer]: /exit
+              - generic [ref=e1909]:
+                - button [ref=e1910] [cursor=pointer]:
+                  - img [ref=e1911]
+                - button [ref=e1914]:
+                  - img [ref=e1915]
+            - generic [ref=e1923]:
+              - generic [ref=e1924] [cursor=pointer]: /status
+              - generic [ref=e1933]:
+                - button [ref=e1934] [cursor=pointer]:
+                  - img [ref=e1935]
+                - button [ref=e1938]:
+                  - img [ref=e1939]
+            - generic [ref=e1947]:
+              - generic [ref=e1948] [cursor=pointer]: /usage
+              - generic [ref=e1957]:
+                - button [ref=e1958] [cursor=pointer]:
+                  - img [ref=e1959]
+                - button [ref=e1962]:
+                  - img [ref=e1963]
+            - generic [ref=e1971]:
+              - generic [ref=e1972] [cursor=pointer]: /cost
+              - generic [ref=e1981]:
+                - button [ref=e1982] [cursor=pointer]:
+                  - img [ref=e1983]
+                - button [ref=e1986]:
+                  - img [ref=e1987]
+            - generic [ref=e1995]:
+              - generic [ref=e1996] [cursor=pointer]: /export
+              - generic [ref=e2005]:
+                - button [ref=e2006] [cursor=pointer]:
+                  - img [ref=e2007]
+                - button [ref=e2010]:
+                  - img [ref=e2011]
+            - generic [ref=e2019]:
+              - generic [ref=e2020] [cursor=pointer]: /rewind
+              - generic [ref=e2029]:
+                - button [ref=e2030] [cursor=pointer]:
+                  - img [ref=e2031]
+                - button [ref=e2034]:
+                  - img [ref=e2035]
+            - generic [ref=e2043]:
+              - generic [ref=e2044] [cursor=pointer]: /context
+              - generic [ref=e2053]:
+                - button [ref=e2054] [cursor=pointer]:
+                  - img [ref=e2055]
+                - button [ref=e2058]:
+                  - img [ref=e2059]
+            - generic [ref=e2067]:
+              - generic [ref=e2068] [cursor=pointer]: /compact
+              - generic [ref=e2077]:
+                - button [ref=e2078] [cursor=pointer]:
+                  - img [ref=e2079]
+                - button [ref=e2082]:
+                  - img [ref=e2083]
+            - generic [ref=e2091]:
+              - generic [ref=e2092] [cursor=pointer]: /memory
+              - generic [ref=e2101]:
+                - button [ref=e2102] [cursor=pointer]:
+                  - img [ref=e2103]
+                - button [ref=e2106]:
+                  - img [ref=e2107]
+            - generic [ref=e2115]:
+              - generic [ref=e2116] [cursor=pointer]: /init
+              - generic [ref=e2125]:
+                - button [ref=e2126] [cursor=pointer]:
+                  - img [ref=e2127]
+                - button [ref=e2130]:
+                  - img [ref=e2131]
+            - generic [ref=e2139]:
+              - generic [ref=e2140] [cursor=pointer]: /config
+              - generic [ref=e2149]:
+                - button [ref=e2150] [cursor=pointer]:
+                  - img [ref=e2151]
+                - button [ref=e2154]:
+                  - img [ref=e2155]
+            - generic [ref=e2163]:
+              - generic [ref=e2164] [cursor=pointer]: /permissions
+              - generic [ref=e2173]:
+                - button [ref=e2174] [cursor=pointer]:
+                  - img [ref=e2175]
+                - button [ref=e2178]:
+                  - img [ref=e2179]
+            - generic [ref=e2187]:
+              - generic [ref=e2188] [cursor=pointer]: /model
+              - generic [ref=e2197]:
+                - button [ref=e2198] [cursor=pointer]:
+                  - img [ref=e2199]
+                - button [ref=e2202]:
+                  - img [ref=e2203]
+            - generic [ref=e2211]:
+              - generic [ref=e2212] [cursor=pointer]: /review
+              - generic [ref=e2221]:
+                - button [ref=e2222] [cursor=pointer]:
+                  - img [ref=e2223]
+                - button [ref=e2226]:
+                  - img [ref=e2227]
+            - generic [ref=e2235]:
+              - generic [ref=e2236] [cursor=pointer]: /doctor
+              - generic [ref=e2245]:
+                - button [ref=e2246] [cursor=pointer]:
+                  - img [ref=e2247]
+                - button [ref=e2250]:
+                  - img [ref=e2251]
+            - generic [ref=e2259]:
+              - generic [ref=e2260] [cursor=pointer]: /add-dir
+              - generic [ref=e2269]:
+                - button [ref=e2270] [cursor=pointer]:
+                  - img [ref=e2271]
+                - button [ref=e2274]:
+                  - img [ref=e2275]
+            - generic [ref=e2283]:
+              - generic [ref=e2284] [cursor=pointer]: SessionStart
+              - generic [ref=e2293]:
+                - button [ref=e2294] [cursor=pointer]:
+                  - img [ref=e2295]
+                - button [ref=e2298]:
+                  - img [ref=e2299]
+            - generic [ref=e2307]:
+              - generic [ref=e2308] [cursor=pointer]: SessionEnd
+              - generic [ref=e2317]:
+                - button [ref=e2318] [cursor=pointer]:
+                  - img [ref=e2319]
+                - button [ref=e2322]:
+                  - img [ref=e2323]
+            - generic [ref=e2331]:
+              - generic [ref=e2332] [cursor=pointer]: PreToolUse
+              - generic [ref=e2341]:
+                - button [ref=e2342] [cursor=pointer]:
+                  - img [ref=e2343]
+                - button [ref=e2346]:
+                  - img [ref=e2347]
+            - generic [ref=e2355]:
+              - generic [ref=e2356] [cursor=pointer]: PostToolUse
+              - generic [ref=e2365]:
+                - button [ref=e2366] [cursor=pointer]:
+                  - img [ref=e2367]
+                - button [ref=e2370]:
+                  - img [ref=e2371]
+            - generic [ref=e2379]:
+              - generic [ref=e2380] [cursor=pointer]: UserPromptSubmit
+              - generic [ref=e2389]:
+                - button [ref=e2390] [cursor=pointer]:
+                  - img [ref=e2391]
+                - button [ref=e2394]:
+                  - img [ref=e2395]
+            - generic [ref=e2403]:
+              - generic [ref=e2404] [cursor=pointer]: Stop
+              - generic [ref=e2413]:
+                - button [ref=e2414] [cursor=pointer]:
+                  - img [ref=e2415]
+                - button [ref=e2418]:
+                  - img [ref=e2419]
+            - generic [ref=e2427]:
+              - generic [ref=e2428] [cursor=pointer]: "!"
+              - generic [ref=e2437]:
+                - button [ref=e2438] [cursor=pointer]:
+                  - img [ref=e2439]
+                - button [ref=e2442]:
+                  - img [ref=e2443]
+            - generic [ref=e2451]:
+              - generic [ref=e2452] [cursor=pointer]: "#"
+              - generic [ref=e2461]:
+                - button [ref=e2462] [cursor=pointer]:
+                  - img [ref=e2463]
+                - button [ref=e2466]:
+                  - img [ref=e2467]
+            - generic [ref=e2475]:
+              - generic [ref=e2476] [cursor=pointer]: \
+              - generic [ref=e2485]:
+                - button [ref=e2486] [cursor=pointer]:
+                  - img [ref=e2487]
+                - button [ref=e2490]:
+                  - img [ref=e2491]
+            - generic [ref=e2499]:
+              - generic [ref=e2500] [cursor=pointer]: "@"
+              - generic [ref=e2509]:
+                - button [ref=e2510] [cursor=pointer]:
+                  - img [ref=e2511]
+                - button [ref=e2514]:
+                  - img [ref=e2515]
+            - generic [ref=e2523]:
+              - generic [ref=e2524] [cursor=pointer]: Shift+Tab
+              - generic [ref=e2533]:
+                - button [ref=e2534] [cursor=pointer]:
+                  - img [ref=e2535]
+                - button [ref=e2538]:
+                  - img [ref=e2539]
+            - generic [ref=e2547]:
+              - generic [ref=e2548] [cursor=pointer]: Slash Commands (/)
+              - generic [ref=e2557]:
+                - button [ref=e2558] [cursor=pointer]:
+                  - img [ref=e2559]
+                - button [ref=e2562]:
+                  - img [ref=e2563]
+            - generic [ref=e2571]:
+              - generic [ref=e2572] [cursor=pointer]: Command Cheatsheet
+              - generic [ref=e2581]:
+                - button [ref=e2582] [cursor=pointer]:
+                  - img [ref=e2583]
+                - button [ref=e2586]:
+                  - img [ref=e2587]
+            - generic [ref=e2595]:
+              - generic [ref=e2596] [cursor=pointer]: Shortcuts & Prefixes
+              - generic [ref=e2605]:
+                - button [ref=e2606] [cursor=pointer]:
+                  - img [ref=e2607]
+                - button [ref=e2610]:
+                  - img [ref=e2611]
+            - generic [ref=e2619]:
+              - generic [ref=e2620] [cursor=pointer]: Ctrl+C
+              - generic [ref=e2629]:
+                - button [ref=e2630] [cursor=pointer]:
+                  - img [ref=e2631]
+                - button [ref=e2634]:
+                  - img [ref=e2635]
+            - generic [ref=e2643]:
+              - generic [ref=e2644] [cursor=pointer]: Esc
+              - generic [ref=e2653]:
+                - button [ref=e2654] [cursor=pointer]:
+                  - img [ref=e2655]
+                - button [ref=e2658]:
+                  - img [ref=e2659]
+            - generic [ref=e2667]:
+              - generic [ref=e2668] [cursor=pointer]: Ctrl+R
+              - generic [ref=e2677]:
+                - button [ref=e2678] [cursor=pointer]:
+                  - img [ref=e2679]
+                - button [ref=e2682]:
+                  - img [ref=e2683]
+            - generic [ref=e2691]:
+              - generic [ref=e2692] [cursor=pointer]: Esc + Esc
+              - generic [ref=e2701]:
+                - button [ref=e2702] [cursor=pointer]:
+                  - img [ref=e2703]
+                - button [ref=e2706]:
+                  - img [ref=e2707]
+            - generic [ref=e2715]:
+              - generic [ref=e2716] [cursor=pointer]: claude Commands
+              - generic [ref=e2725]:
+                - button [ref=e2726] [cursor=pointer]:
+                  - img [ref=e2727]
+                - button [ref=e2730]:
+                  - img [ref=e2731]
+            - generic [ref=e2739]:
+              - generic [ref=e2740] [cursor=pointer]: Session Commands
+              - generic [ref=e2749]:
+                - button [ref=e2750] [cursor=pointer]:
+                  - img [ref=e2751]
+                - button [ref=e2754]:
+                  - img [ref=e2755]
+            - generic [ref=e2763]:
+              - generic [ref=e2764] [cursor=pointer]: Context & Memory
+              - generic [ref=e2773]:
+                - button [ref=e2774] [cursor=pointer]:
+                  - img [ref=e2775]
+                - button [ref=e2778]:
+                  - img [ref=e2779]
+            - generic [ref=e2787]:
+              - generic [ref=e2788] [cursor=pointer]: Configuration
+              - generic [ref=e2797]:
+                - button [ref=e2798] [cursor=pointer]:
+                  - img [ref=e2799]
+                - button [ref=e2802]:
+                  - img [ref=e2803]
+            - generic [ref=e2811]:
+              - generic [ref=e2812] [cursor=pointer]: /agents
+              - generic [ref=e2821]:
+                - button [ref=e2822] [cursor=pointer]:
+                  - img [ref=e2823]
+                - button [ref=e2826]:
+                  - img [ref=e2827]
+            - generic [ref=e2835]:
+              - generic [ref=e2836] [cursor=pointer]: /plan
+              - generic [ref=e2845]:
+                - button [ref=e2846] [cursor=pointer]:
+                  - img [ref=e2847]
+                - button [ref=e2850]:
+                  - img [ref=e2851]
+            - generic [ref=e2859]:
+              - generic [ref=e2860] [cursor=pointer]: Hooks
+              - generic [ref=e2869]:
+                - button [ref=e2870] [cursor=pointer]:
+                  - img [ref=e2871]
+                - button [ref=e2874]:
+                  - img [ref=e2875]
+            - generic [ref=e2883]:
+              - generic [ref=e2884] [cursor=pointer]: /mcp
+              - generic [ref=e2893]:
+                - button [ref=e2894] [cursor=pointer]:
+                  - img [ref=e2895]
+                - button [ref=e2898]:
+                  - img [ref=e2899]
+            - generic [ref=e2907]:
+              - generic [ref=e2908] [cursor=pointer]: /hooks
+              - generic [ref=e2917]:
+                - button [ref=e2918] [cursor=pointer]:
+                  - img [ref=e2919]
+                - button [ref=e2922]:
+                  - img [ref=e2923]
+            - generic [ref=e2931]:
+              - generic [ref=e2932] [cursor=pointer]: VS Code
+              - generic [ref=e2941]:
+                - button [ref=e2942] [cursor=pointer]:
+                  - img [ref=e2943]
+                - button [ref=e2946]:
+                  - img [ref=e2947]
+            - generic [ref=e2955]:
+              - generic [ref=e2956] [cursor=pointer]: CLAUDE.md
+              - generic [ref=e2965]:
+                - button [ref=e2966] [cursor=pointer]:
+                  - img [ref=e2967]
+                - button [ref=e2970]:
+                  - img [ref=e2971]
+            - generic [ref=e2979]:
+              - generic [ref=e2980] [cursor=pointer]: Skills
+              - generic [ref=e2989]:
+                - button [ref=e2990] [cursor=pointer]:
+                  - img [ref=e2991]
+                - button [ref=e2994]:
+                  - img [ref=e2995]
+            - generic [ref=e3003]:
+              - generic [ref=e3004] [cursor=pointer]: Subagents
+              - generic [ref=e3013]:
+                - button [ref=e3014] [cursor=pointer]:
+                  - img [ref=e3015]
+                - button [ref=e3018]:
+                  - img [ref=e3019]
+            - generic [ref=e3027]:
+              - generic [ref=e3028] [cursor=pointer]: Prompt Engineering
+              - generic [ref=e3037]:
+                - button [ref=e3038] [cursor=pointer]:
+                  - img [ref=e3039]
+                - button [ref=e3042]:
+                  - img [ref=e3043]
+            - generic [ref=e3051]:
+              - generic [ref=e3052] [cursor=pointer]: Hooks
+              - generic [ref=e3061]:
+                - button [ref=e3062] [cursor=pointer]:
+                  - img [ref=e3063]
+                - button [ref=e3066]:
+                  - img [ref=e3067]
+            - generic [ref=e3075]:
+              - generic [ref=e3076] [cursor=pointer]: Prompting Best Practices
+              - generic [ref=e3085]:
+                - button [ref=e3086] [cursor=pointer]:
+                  - img [ref=e3087]
+                - button [ref=e3090]:
+                  - img [ref=e3091]
+            - generic [ref=e3099]:
+              - generic [ref=e3100] [cursor=pointer]: Claude Workflow
+              - generic [ref=e3109]:
+                - button [ref=e3110] [cursor=pointer]:
+                  - img [ref=e3111]
+                - button [ref=e3114]:
+                  - img [ref=e3115]
+            - generic [ref=e3123]:
+              - generic [ref=e3124] [cursor=pointer]: Permission Modes
+              - generic [ref=e3133]:
+                - button [ref=e3134] [cursor=pointer]:
+                  - img [ref=e3135]
+                - button [ref=e3138]:
+                  - img [ref=e3139]
+            - generic [ref=e3147]:
+              - generic [ref=e3148] [cursor=pointer]: Resume
+              - generic [ref=e3157]:
+                - button [ref=e3158] [cursor=pointer]:
+                  - img [ref=e3159]
+                - button [ref=e3162]:
+                  - img [ref=e3163]
+            - generic [ref=e3171]:
+              - generic [ref=e3172] [cursor=pointer]: Manage Sessions
+              - generic [ref=e3181]:
+                - button [ref=e3182] [cursor=pointer]:
+                  - img [ref=e3183]
+                - button [ref=e3186]:
+                  - img [ref=e3187]
+            - generic [ref=e3195]:
+              - generic [ref=e3196] [cursor=pointer]: Rewind
+              - generic [ref=e3205]:
+                - button [ref=e3206] [cursor=pointer]:
+                  - img [ref=e3207]
+                - button [ref=e3210]:
+                  - img [ref=e3211]
+            - generic [ref=e3219]:
+              - generic [ref=e3220] [cursor=pointer]: What to include
+              - generic [ref=e3229]:
+                - button [ref=e3230] [cursor=pointer]:
+                  - img [ref=e3231]
+                - button [ref=e3234]:
+                  - img [ref=e3235]
+            - generic [ref=e3243]:
+              - generic [ref=e3244] [cursor=pointer]: How to Structure
+              - generic [ref=e3253]:
+                - button [ref=e3254] [cursor=pointer]:
+                  - img [ref=e3255]
+                - button [ref=e3258]:
+                  - img [ref=e3259]
+            - generic [ref=e3267]:
+              - generic [ref=e3268] [cursor=pointer]: Locations
+              - generic [ref=e3277]:
+                - button [ref=e3278] [cursor=pointer]:
+                  - img [ref=e3279]
+                - button [ref=e3282]:
+                  - img [ref=e3283]
+            - generic [ref=e3291]:
+              - generic [ref=e3292] [cursor=pointer]: CLAUDE.md Best Practices
+              - generic [ref=e3301]:
+                - button [ref=e3302] [cursor=pointer]:
+                  - img [ref=e3303]
+                - button [ref=e3306]:
+                  - img [ref=e3307]
+            - generic [ref=e3315]:
+              - generic [ref=e3316] [cursor=pointer]: Configuring Skills
+              - generic [ref=e3325]:
+                - button [ref=e3326] [cursor=pointer]:
+                  - img [ref=e3327]
+                - button [ref=e3330]:
+                  - img [ref=e3331]
+            - generic [ref=e3339]:
+              - generic [ref=e3340] [cursor=pointer]: Creating Skills
+              - generic [ref=e3349]:
+                - button [ref=e3350] [cursor=pointer]:
+                  - img [ref=e3351]
+                - button [ref=e3354]:
+                  - img [ref=e3355]
+            - generic [ref=e3363]:
+              - generic [ref=e3364] [cursor=pointer]: Locations
+              - generic [ref=e3373]:
+                - button [ref=e3374] [cursor=pointer]:
+                  - img [ref=e3375]
+                - button [ref=e3378]:
+                  - img [ref=e3379]
+            - generic [ref=e3387]:
+              - generic [ref=e3388] [cursor=pointer]: Skills Best Practices
+              - generic [ref=e3397]:
+                - button [ref=e3398] [cursor=pointer]:
+                  - img [ref=e3399]
+                - button [ref=e3402]:
+                  - img [ref=e3403]
+            - generic [ref=e3411]:
+              - generic [ref=e3412] [cursor=pointer]: Configuring Subagents
+              - generic [ref=e3421]:
+                - button [ref=e3422] [cursor=pointer]:
+                  - img [ref=e3423]
+                - button [ref=e3426]:
+                  - img [ref=e3427]
+            - generic [ref=e3435]:
+              - generic [ref=e3436] [cursor=pointer]: Creating Subagents
+              - generic [ref=e3445]:
+                - button [ref=e3446] [cursor=pointer]:
+                  - img [ref=e3447]
+                - button [ref=e3450]:
+                  - img [ref=e3451]
+            - generic [ref=e3459]:
+              - generic [ref=e3460] [cursor=pointer]: When to Use Subagents
+              - generic [ref=e3469]:
+                - button [ref=e3470] [cursor=pointer]:
+                  - img [ref=e3471]
+                - button [ref=e3474]:
+                  - img [ref=e3475]
+            - generic [ref=e3483]:
+              - generic [ref=e3484] [cursor=pointer]: When to Use Skills
+              - generic [ref=e3493]:
+                - button [ref=e3494] [cursor=pointer]:
+                  - img [ref=e3495]
+                - button [ref=e3498]:
+                  - img [ref=e3499]
+            - generic [ref=e3507]:
+              - generic [ref=e3508] [cursor=pointer]: Plan Mode
+              - generic [ref=e3517]:
+                - button [ref=e3518] [cursor=pointer]:
+                  - img [ref=e3519]
+                - button [ref=e3522]:
+                  - img [ref=e3523]
+            - generic [ref=e3531]:
+              - generic [ref=e3532] [cursor=pointer]: Hook Inputs & Outputs
+              - generic [ref=e3541]:
+                - button [ref=e3542] [cursor=pointer]:
+                  - img [ref=e3543]
+                - button [ref=e3546]:
+                  - img [ref=e3547]
+            - generic [ref=e3555]:
+              - generic [ref=e3556] [cursor=pointer]: Hook Types
+              - generic [ref=e3565]:
+                - button [ref=e3566] [cursor=pointer]:
+                  - img [ref=e3567]
+                - button [ref=e3570]:
+                  - img [ref=e3571]
+            - generic [ref=e3579]:
+              - generic [ref=e3580] [cursor=pointer]: Hook Events & Matchers
+              - generic [ref=e3589]:
+                - button [ref=e3590] [cursor=pointer]:
+                  - img [ref=e3591]
+                - button [ref=e3594]:
+                  - img [ref=e3595]
+            - generic [ref=e3603]:
+              - generic [ref=e3604] [cursor=pointer]: When to Use Hooks
+              - generic [ref=e3613]:
+                - button [ref=e3614] [cursor=pointer]:
+                  - img [ref=e3615]
+                - button [ref=e3618]:
+                  - img [ref=e3619]
+            - generic [ref=e3627]:
+              - generic [ref=e3628] [cursor=pointer]: Agent Team
+              - generic [ref=e3637]:
+                - button [ref=e3638] [cursor=pointer]:
+                  - img [ref=e3639]
+                - button [ref=e3642]:
+                  - img [ref=e3643]
+            - generic [ref=e3651]:
+              - generic [ref=e3652] [cursor=pointer]: Output Styles
+              - generic [ref=e3661]:
+                - button [ref=e3662] [cursor=pointer]:
+                  - img [ref=e3663]
+                - button [ref=e3666]:
+                  - img [ref=e3667]
+            - generic [ref=e3675]:
+              - generic [ref=e3676] [cursor=pointer]: Customize Status Line
+              - generic [ref=e3685]:
+                - button [ref=e3686] [cursor=pointer]:
+                  - img [ref=e3687]
+                - button [ref=e3690]:
+                  - img [ref=e3691]
+            - generic [ref=e3699]:
+              - generic [ref=e3700] [cursor=pointer]: Model Configuration
+              - generic [ref=e3709]:
+                - button [ref=e3710] [cursor=pointer]:
+                  - img [ref=e3711]
+                - button [ref=e3714]:
+                  - img [ref=e3715]
+            - generic [ref=e3723]:
+              - generic [ref=e3724] [cursor=pointer]: Scaling Claude
+              - generic [ref=e3733]:
+                - button [ref=e3734] [cursor=pointer]:
+                  - img [ref=e3735]
+                - button [ref=e3738]:
+                  - img [ref=e3739]
+            - generic [ref=e3747]:
+              - generic [ref=e3748] [cursor=pointer]: Use /compact regularly
+              - generic [ref=e3757]:
+                - button [ref=e3758] [cursor=pointer]:
+                  - img [ref=e3759]
+                - button [ref=e3762]:
+                  - img [ref=e3763]
+            - generic [ref=e3771]:
+              - generic [ref=e3772] [cursor=pointer]: Use subagents and hooks
+              - generic [ref=e3781]:
+                - button [ref=e3782] [cursor=pointer]:
+                  - img [ref=e3783]
+                - button [ref=e3786]:
+                  - img [ref=e3787]
+            - generic [ref=e3795]:
+              - generic [ref=e3796] [cursor=pointer]: Security Best Practices
+              - generic [ref=e3805]:
+                - button [ref=e3806] [cursor=pointer]:
+                  - img [ref=e3807]
+                - button [ref=e3810]:
+                  - img [ref=e3811]
+            - generic [ref=e3819]:
+              - generic [ref=e3820] [cursor=pointer]: Connecting Tools with MCP
+              - generic [ref=e3829]:
+                - button [ref=e3830] [cursor=pointer]:
+                  - img [ref=e3831]
+                - button [ref=e3834]:
+                  - img [ref=e3835]
+            - generic [ref=e3843]:
+              - generic [ref=e3844] [cursor=pointer]: Plugins
+              - generic [ref=e3853]:
+                - button [ref=e3854] [cursor=pointer]:
+                  - img [ref=e3855]
+                - button [ref=e3858]:
+                  - img [ref=e3859]
+            - generic [ref=e3867]:
+              - generic [ref=e3868] [cursor=pointer]: Advanced Claude Code
+              - generic [ref=e3877]:
+                - button [ref=e3878] [cursor=pointer]:
+                  - img [ref=e3879]
+                - button [ref=e3882]:
+                  - img [ref=e3883]
+            - generic [ref=e3891]:
+              - generic [ref=e3892] [cursor=pointer]: Non-coding tasks
+              - generic [ref=e3901]:
+                - button [ref=e3902] [cursor=pointer]:
+                  - img [ref=e3903]
+                - button [ref=e3906]:
+                  - img [ref=e3907]
+      - generic "Control Panel" [ref=e3914]:
+        - button "Zoom In" [ref=e3915] [cursor=pointer]:
+          - img [ref=e3916]
+        - button "Zoom Out" [ref=e3918] [cursor=pointer]:
+          - img [ref=e3919]
+        - button "Fit View" [ref=e3921] [cursor=pointer]:
+          - img [ref=e3922]
+      - img
+  - generic [ref=e3926]:
+    - paragraph [ref=e3927]: Join the Community
+    - paragraph [ref=e3928]:
+      - text: roadmap.sh is the
+      - link "6th most starred project on GitHub" [ref=e3929] [cursor=pointer]:
+        - /url: https://github.com/search?o=desc&q=stars%3A%3E100000&s=stars&type=Repositories
+      - text: and is visited by hundreds of thousands of developers every month.
+    - generic [ref=e3930]:
+      - generic [ref=e3931]:
+        - paragraph [ref=e3932]:
+          - generic [ref=e3933]: Rank 6th
+          - text: out of 28M!
+        - generic [ref=e3934]:
+          - paragraph [ref=e3935]: 350K
+          - paragraph [ref=e3936]: GitHub Stars
+        - 'link "Star us on GitHub Help us reach #1" [ref=e3937] [cursor=pointer]':
+          - /url: https://github.com/kamranahmedse/developer-roadmap
+          - generic [ref=e3938]:
+            - img [ref=e3939]
+            - generic [ref=e3941]: Star us on GitHub
+          - generic [ref=e3942]: "Help us reach #1"
+      - generic [ref=e3943]:
+        - paragraph [ref=e3944]:
+          - generic [ref=e3945]: +90k
+          - text: every month
+        - generic [ref=e3946]:
+          - paragraph [ref=e3947]: +2.8M
+          - paragraph [ref=e3948]: Registered Users
+        - link "Register yourself Commit to your growth" [ref=e3949] [cursor=pointer]:
+          - /url: /signup
+          - generic [ref=e3950]:
+            - img [ref=e3951]
+            - generic [ref=e3956]: Register yourself
+          - generic [ref=e3957]: Commit to your growth
+      - generic [ref=e3958]:
+        - paragraph [ref=e3959]:
+          - generic [ref=e3960]: +2k
+          - text: every month
+        - generic [ref=e3961]:
+          - paragraph [ref=e3962]: 45K
+          - paragraph [ref=e3963]: Discord Members
+        - link "Join on Discord Join the community" [ref=e3964] [cursor=pointer]:
+          - /url: https://roadmap.sh/discord
+          - generic [ref=e3965]:
+            - img [ref=e3966]
+            - generic [ref=e3969]: Join on Discord
+          - generic [ref=e3970]: Join the community
+  - generic [ref=e3972]:
+    - paragraph [ref=e3973]:
+      - link "Roadmaps" [ref=e3974] [cursor=pointer]:
+        - /url: /roadmaps
+      - link "Guides" [ref=e3975] [cursor=pointer]:
+        - /url: /guides
+      - link "FAQs" [ref=e3976] [cursor=pointer]:
+        - /url: /about
+      - link "YouTube" [ref=e3977] [cursor=pointer]:
+        - /url: https://youtube.com/theroadmap?sub_confirmation=1
+    - generic [ref=e3978]:
+      - generic [ref=e3979]:
+        - paragraph [ref=e3980]:
+          - link "roadmap.sh" [ref=e3981] [cursor=pointer]:
+            - /url: /
+            - img [ref=e3982]
+            - generic [ref=e3985]: roadmap.sh
+          - generic [ref=e3986]: by
+          - link "@kamrify" [ref=e3987] [cursor=pointer]:
+            - /url: https://x.com/kamrify
+        - paragraph [ref=e3988]: Community created roadmaps, best practices, projects, articles, resources and journeys to help you choose your path and grow in your career.
+        - paragraph [ref=e3990]:
+          - text: © roadmap.sh·
+          - link "Terms" [ref=e3991] [cursor=pointer]:
+            - /url: /terms
+          - text: ·
+          - link "Privacy" [ref=e3992] [cursor=pointer]:
+            - /url: /privacy
+          - text: ·
+          - link "Follow on LinkedIn" [ref=e3993] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/roadmapsh
+            - img [ref=e3994]
+          - link "Subscribe to YouTube channel" [ref=e3997] [cursor=pointer]:
+            - /url: https://youtube.com/theroadmap?sub_confirmation=1
+            - img [ref=e3998]
+          - link "Follow on Twitter" [ref=e4000] [cursor=pointer]:
+            - /url: https://twitter.com/roadmapsh
+            - img [ref=e4001]
+          - link "Follow on Blusky" [ref=e4003] [cursor=pointer]:
+            - /url: http://roadmapsh.bsky.social/
+            - img [ref=e4004]
+      - generic [ref=e4006]:
+        - link "ThewNewStack" [ref=e4007] [cursor=pointer]:
+          - /url: https://thenewstack.io
+          - img "ThewNewStack" [ref=e4008]
+        - paragraph [ref=e4009]: The top DevOps resource for Kubernetes, cloud-native computing, and large-scale development and deployment.
+        - paragraph [ref=e4011]:
+          - link "DevOps" [ref=e4012] [cursor=pointer]:
+            - /url: https://thenewstack.io/category/devops?utm_source=roadmap.sh&utm_medium=Referral&utm_campaign=Footer
+          - text: ·
+          - link "Kubernetes" [ref=e4013] [cursor=pointer]:
+            - /url: https://thenewstack.io/category/kubernetes?utm_source=roadmap.sh&utm_medium=Referral&utm_campaign=Footer
+          - text: ·
+          - link "Cloud-Native" [ref=e4014] [cursor=pointer]:
+            - /url: https://thenewstack.io/category/cloud-native?utm_source=roadmap.sh&utm_medium=Referral&utm_campaign=Footer
+    - button "Cookie Settings" [ref=e4016] [cursor=pointer]:
+      - img [ref=e4017]
+      - text: Cookie Settings
+  - region "Notifications alt+T"

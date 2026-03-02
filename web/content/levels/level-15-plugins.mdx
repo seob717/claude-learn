@@ -1,0 +1,51 @@
+---
+title: "플러그인 생태계"
+level: 15
+slug: "level-15-plugins"
+category: "고급"
+description: "스킬, 에이전트, Hook, MCP를 묶은 플러그인 패키지"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "플러그인 마켓플레이스는 공식 문서 참조"
+prerequisites: ["level-13-agents-skills", "level-08-mcp"]
+estimatedMinutes: 20
+tags: ["플러그인", "마켓플레이스", "패키지", "생태계"]
+---
+
+## 플러그인이란?
+
+스킬, 에이전트, Hook, MCP 서버, LSP 서버를 하나로 묶은 **패키지**.
+
+## 관리
+
+```bash
+# VS Code에서
+/plugins           # 플러그인 매니저
+
+# CLI에서
+claude plugin list
+claude plugin install <url-or-name>
+```
+
+## 플러그인 소스
+
+- GitHub 리포지토리
+- Git URL
+- NPM 패키지
+- 공식 Anthropic 마켓플레이스
+
+## 설정 예시
+
+```json
+{
+  "enabledPlugins": {
+    "oh-my-claudecode@omc": true,
+    "superpowers@claude-plugins-official": true
+  }
+}
+```
+
+> `oh-my-claudecode`: 멀티에이전트 오케스트레이션 플러그인
+
+> `superpowers`: 워크플로 스킬 모음 플러그인

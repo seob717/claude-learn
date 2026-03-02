@@ -1,0 +1,121 @@
+---
+title: "종합 복습"
+level: 16
+slug: "level-16-review"
+category: "심화"
+description: "전체 레벨 종합 실습과 빠른 참조 카드"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "전체 기능 개요는 공식 문서 참조"
+prerequisites: ["level-15-plugins"]
+estimatedMinutes: 45
+tags: ["종합", "실습", "참조", "복습"]
+---
+
+## 실습 1: 완전한 프로젝트 셋업
+
+```
+1. git init
+2. CLAUDE.md 작성 (프로젝트 규칙)
+3. .claude/rules/ 에 모듈별 규칙
+4. .claude/settings.json 에 팀 권한
+5. .mcp.json 에 MCP 서버
+6. .claude/agents/ 에 커스텀 에이전트
+7. .claude/skills/ 에 커스텀 스킬
+8. hooks 설정 (자동 포매팅, 알림)
+9. .gitignore (local 파일 제외)
+```
+
+## 실습 2: Headless 파이프라인
+
+```bash
+# 코드 분석 → 리뷰 → 수정 → 테스트 파이프라인
+claude -p "코드 분석" --output-format json | \
+  claude -p "리뷰 결과 기반으로 수정" --allowedTools "Edit" | \
+  claude -p "테스트 실행" --allowedTools "Bash(npm test)"
+```
+
+## 실습 3: Agent Teams로 병렬 작업
+
+```bash
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+claude --worktree feature-x
+# 세션 내에서 여러 팀원에게 독립 태스크 분배
+```
+
+## 실습 4: Hook 고급 활용
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "prompt",
+        "prompt": "이 bash 명령어가 위험한지 평가해주세요. 파일 삭제나 시스템 변경이 있으면 차단하세요."
+      }]
+    }]
+  }
+}
+```
+
+## 빠른 참조 카드
+
+### 필수 CLI 옵션
+
+```bash
+claude                          # 대화형 시작
+claude -p "query"               # 비대화형
+claude -c                       # 최근 세션 이어하기
+claude -r name                  # 이름으로 세션 재개
+claude -w name                  # worktree 격리 세션
+claude --model opus             # 모델 지정
+claude --effort low             # 노력 수준
+claude --permission-mode plan   # 권한 모드
+claude mcp list                 # MCP 서버 목록
+claude agents                   # 에이전트 목록
+claude doctor                   # 설치 진단
+claude security scan            # 보안 취약점 스캔
+```
+
+### 필수 슬래시 커맨드
+
+```
+/model    /fast     /plan      /compact
+/cost     /context  /status    /resume
+/mcp      /memory   /rewind    /clear
+```
+
+### 필수 단축키
+
+```
+Ctrl+C      취소          Shift+Tab   권한 모드 순환
+Ctrl+D      종료          Alt+P       모델 전환
+Esc Esc     되감기        Alt+T       확장 사고 토글
+\+Enter     멀티라인      Ctrl+T      태스크 리스트
+```
+
+### 파일 구조 참조
+
+```
+~/.claude/
+├── CLAUDE.md              # 전역 개인 지시사항
+├── settings.json          # 전역 개인 설정
+├── keybindings.json       # 키바인딩
+├── rules/*.md             # 전역 개인 규칙
+├── skills/*/SKILL.md      # 개인 스킬
+└── projects/<name>/memory/ # 자동 메모리
+
+프로젝트/
+├── CLAUDE.md              # 팀 공유 지시사항
+├── CLAUDE.local.md        # 개인 프로젝트 지시사항
+├── .mcp.json              # 팀 공유 MCP 설정
+├── .claude/
+│   ├── settings.json      # 팀 공유 설정
+│   ├── settings.local.json # 개인 프로젝트 설정
+│   ├── rules/*.md         # 팀 공유 규칙
+│   ├── agents/*.md        # 커스텀 에이전트
+│   └── skills/*/SKILL.md  # 프로젝트 스킬
+└── .gitignore             # CLAUDE.local.md, settings.local.json 제외
+```

@@ -1,0 +1,68 @@
+---
+title: "CLAUDE.md 계층 구조"
+level: 2
+slug: "level-02-claude-md"
+category: "기초"
+description: "영구 지시사항 파일의 계층 구조와 모듈 규칙 시스템"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/memory"
+docsNote: "CLAUDE.md 작성법과 메모리 시스템은 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 25
+tags: ["CLAUDE.md", "지시사항", "메모리"]
+---
+
+## CLAUDE.md가 뭔가?
+
+Claude에게 주는 **영구 지시사항 파일**. 매 세션 시작 시 자동으로 읽힌다.
+
+## 계층 구조 (우선순위 높은 순)
+
+| 순위 | 파일 | 범위 | git 커밋 여부 |
+|------|------|------|---------------|
+| 1 | 관리 정책 CLAUDE.md | 조직 전체 (IT 배포) | N/A |
+| 2 | `./CLAUDE.md` 또는 `./.claude/CLAUDE.md` | 프로젝트 팀 공유 | O |
+| 3 | `./.claude/rules/*.md` | 프로젝트 모듈별 규칙 | O |
+| 4 | `~/.claude/CLAUDE.md` | 개인, 모든 프로젝트 | X |
+| 5 | `./CLAUDE.local.md` | 개인, 현재 프로젝트만 | X (gitignore) |
+| 6 | `~/.claude/projects/<project>/memory/` | 자동 메모리 | X |
+
+## 모듈 규칙 (paths 프론트매터)
+
+특정 파일 패턴에만 적용되는 규칙을 만들 수 있다:
+
+```markdown
+---
+paths:
+  - "src/api/**/*.ts"
+---
+# API 규칙
+모든 API 엔드포인트에 입력 검증 필수.
+```
+
+> `src/api/` 하위의 .ts 파일을 Claude가 읽을 때만 이 규칙이 로드된다.
+
+## Import 문법
+
+다른 파일 내용을 CLAUDE.md에 포함시킬 수 있다:
+
+```markdown
+프로젝트 개요는 @README 참조
+npm 명령어는 @package.json 참조
+Git 워크플로 @docs/git-instructions.md
+```
+
+## 실습에서 만든 구조
+
+```
+프로젝트/
+├── CLAUDE.md                  ← 팀 공유
+├── CLAUDE.local.md            ← 개인 전용 (gitignore)
+├── .claude/
+│   ├── settings.local.json    ← 개인 설정
+│   └── rules/
+│       ├── code-style.md      ← 전체 적용
+│       └── experiments.md     ← experiments/** 에만 적용
+└── .gitignore                 ← local 파일들 제외
+```

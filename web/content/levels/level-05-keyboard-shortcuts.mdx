@@ -1,0 +1,77 @@
+---
+title: "키보드 단축키"
+level: 5
+slug: "level-05-keyboard-shortcuts"
+category: "기초"
+description: "필수 단축키와 커스텀 키바인딩 설정법"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "키보드 단축키 전체 목록은 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 15
+tags: ["단축키", "키바인딩", "생산성"]
+---
+
+## 세션 제어
+
+| 단축키 | 동작 |
+|--------|------|
+| `Ctrl+C` | 현재 입력/생성 취소 |
+| `Ctrl+D` | Claude Code 종료 |
+| `Ctrl+F` | 백그라운드 에이전트 전부 중단 (두 번 누르기) |
+| `Shift+Tab` | 권한 모드 순환 전환 |
+| `Esc Esc` | 되감기 또는 요약 |
+
+## 입력 편집
+
+| 단축키 | 동작 |
+|--------|------|
+| `\` + `Enter` | 멀티라인 입력 (가장 확실한 방법) |
+| `Option+Enter` | 멀티라인 (macOS) |
+| `Ctrl+J` | 멀티라인 (제어 시퀀스) |
+| `Ctrl+G` | 외부 텍스트 에디터에서 편집 |
+| `Ctrl+K` | 커서부터 줄 끝까지 삭제 |
+| `Ctrl+U` | 전체 줄 삭제 |
+| `Ctrl+Y` | 삭제한 텍스트 붙여넣기 |
+| `Alt+B` / `Alt+F` | 단어 단위 이동 |
+
+## 모드 전환
+
+| 단축키 | 동작 |
+|--------|------|
+| `Alt+P` / `Option+P` | 모델 전환 |
+| `Alt+T` / `Option+T` | 확장 사고(Extended Thinking) 토글 |
+| `Ctrl+V` | 클립보드 이미지 붙여넣기 |
+| `Ctrl+O` | 상세 출력(verbose) 토글 |
+| `Ctrl+R` | 명령어 히스토리 역검색 |
+| `Ctrl+T` | 태스크 리스트 토글 |
+| `Ctrl+B` | 실행 중인 작업을 백그라운드로 |
+| `Ctrl+L` | 터미널 화면 지우기 |
+
+## 커스텀 키바인딩
+
+`~/.claude/keybindings.json`에서 설정:
+
+```json
+{
+  "$schema": "https://www.schemastore.org/claude-code-keybindings.json",
+  "bindings": [
+    {
+      "context": "Chat",
+      "bindings": {
+        "ctrl+e": "chat:externalEditor",
+        "ctrl+u": null
+      }
+    }
+  ]
+}
+```
+
+**키 표기법:** `ctrl+k`, `shift+tab`, `meta+p`, `ctrl+shift+c`
+
+**코드 바인딩:** `ctrl+k ctrl+s` (순차 키 조합)
+
+**예약 키 (변경 불가):** `Ctrl+C`, `Ctrl+D`
+
+변경 후 재시작 없이 자동 반영됨.

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  // 계정 환경 변수 + HTTP Hook 결합 예시
+  // 팀 환경에서 "누가, 언제, 무엇을" 했는지 추적
+
+  "hooks": {
+    "allowedDomains": ["audit.company.com"],
+
+    // 파일 변경 시 감사 로그 전송
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            // HTTP Hook — 사용자 정보가 자동으로 포함됨
+            "type": "http",
+            "url": "https://audit.company.com/claude-activity",
+            "method": "POST",
+            "headers": {
+              // 환경 변수로 사용자 식별
+              "X-User-Email": "${CLAUDE_CODE_USER_EMAIL}",
+              "X-Account-ID": "${CLAUDE_CODE_ACCOUNT_UUID}",
+              "X-Org-ID": "${CLAUDE_CODE_ORGANIZATION_UUID}",
+              "Content-Type": "application/json"
+            },
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+
+    // command Hook에서도 동일하게 사용 가능
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            // 쉘에서 환경 변수로 바로 접근 가능
+            "command": "echo \"[$(date)] $CLAUDE_CODE_USER_EMAIL completed a task\" >> /tmp/claude-audit.log"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+---
+title: "커스텀 에이전트와 스킬"
+level: 13
+slug: "level-13-agents-skills"
+category: "고급"
+description: "전용 에이전트 정의와 커스텀 슬래시 커맨드 만들기"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/agents"
+docsNote: "에이전트와 스킬 작성법은 공식 문서 참조"
+prerequisites: ["level-07-hooks", "level-10-sdk"]
+estimatedMinutes: 35
+tags: ["에이전트", "스킬", "커스텀", "자동화"]
+---
+
+## 커스텀 에이전트
+
+`.claude/agents/`에 전용 에이전트를 정의할 수 있다:
+
+```markdown
+<!-- .claude/agents/reviewer.md -->
+---
+name: reviewer
+description: 코드 리뷰 전문 에이전트
+model: sonnet
+allowed-tools: Read, Grep, Glob
+permission-mode: plan
+---
+당신은 코드 리뷰 전문가입니다.
+보안 취약점, 성능 이슈, 코드 스타일 위반을 찾아주세요.
+```
+
+**관리:** `/agents`로 생성, 편집, 목록 확인
+
+**사용:**
+
+```bash
+claude --agent reviewer "src/ 디렉토리를 리뷰해줘"
+```
+
+## 스킬 (커스텀 슬래시 커맨드)
+
+`~/.claude/skills/` (개인) 또는 `.claude/skills/` (프로젝트)에 정의:
+
+```markdown
+<!-- .claude/skills/deploy/SKILL.md -->
+---
+name: deploy
+description: 프로덕션 배포 수행
+user-invocable: true
+allowed-tools: Bash, Read
+argument-hint: <environment>
+---
+$ARGUMENTS 환경으로 배포를 수행합니다:
+1. 테스트 실행
+2. 빌드
+3. 배포
+```
+
+> `/deploy production`으로 호출 가능
+
+## 프론트매터 옵션
+
+| 키 | 설명 |
+|----|------|
+| `name` | 스킬 이름 |
+| `description` | 설명 |
+| `user-invocable` | 사용자가 직접 호출 가능 |
+| `allowed-tools` | 허용 도구 |
+| `model` | 사용할 모델 |
+| `context` | `fork`면 서브에이전트에서 실행 |
+| `agent` | 실행할 에이전트 |
+| `argument-hint` | 인수 힌트 표시 |
+
+## --add-dir와 스킬 자동 로드
+
+`claude --add-dir ../other-project`로 추가한 디렉토리에 `.claude/skills/`가 있으면 해당 스킬도 자동으로 로드된다. 여러 프로젝트의 스킬을 한 세션에서 사용 가능.
+
+## 동적 컨텍스트
+
+```markdown
+현재 브랜치: !`git branch --show-current`
+최근 커밋: !`git log --oneline -5`
+```
+
+> `` !`backtick` `` 안의 명령어가 실행되어 결과가 주입됨
+
+**문자열 치환:** `$ARGUMENTS`, `$ARGUMENTS[0]`, `$0`, `${CLAUDE_SESSION_ID}`

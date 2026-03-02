@@ -1,0 +1,86 @@
+---
+title: "세션 관리와 컨텍스트"
+level: 9
+slug: "level-09-sessions"
+category: "제어"
+description: "세션 생명주기, 컨텍스트 관리, 자동 메모리 시스템"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/memory"
+docsNote: "세션 관리와 메모리 시스템 상세는 공식 문서 참조"
+prerequisites: ["level-04-slash-commands"]
+estimatedMinutes: 25
+tags: ["세션", "컨텍스트", "메모리", "압축"]
+---
+
+## 세션 생명주기
+
+```
+시작 → 대화 → (컨텍스트 가득) → 자동 압축 → 계속 대화 → 종료
+                                                    ↓
+                                              나중에 /resume으로 재개
+```
+
+## 세션 관리 커맨드
+
+| 방법 | 용도 |
+|------|------|
+| `claude -c` | 가장 최근 세션 이어하기 |
+| `claude -r session-name` | 이름으로 세션 재개 |
+| `claude --from-pr 123` | PR에 연결된 세션 재개 |
+| `/resume` | 대화형 세션 피커 (P: 미리보기, R: 이름변경, B: 브랜치 필터) |
+| `/rename auth-refactor` | 현재 세션 이름 지정 |
+| `/clear` | 대화 초기화 (세션은 유지) |
+| `/export` | 대화 내보내기 |
+
+## 컨텍스트 관리
+
+### 자동 압축 (Auto-compaction)
+
+컨텍스트가 가득 차면 자동으로 이전 대화를 요약해서 공간 확보.
+핵심 정보는 보존된다.
+
+### 수동 압축
+
+```
+/compact                    # 기본 압축
+/compact API 관련 내용 유지   # 특정 주제 포커스 압축
+```
+
+### 컨텍스트 시각화
+
+```
+/context     # 컬러 그리드로 사용량 표시
+```
+
+## 자동 메모리 (Auto Memory)
+
+Claude가 프로젝트 패턴, 디버깅 인사이트, 아키텍처를 자동 저장:
+
+```
+~/.claude/projects/<project>/memory/
+├── MEMORY.md          # 인덱스 (처음 200줄 자동 로드)
+├── debugging.md       # 주제별 파일
+└── api-conventions.md # 주제별 파일
+```
+
+관리: `/memory`로 토글, 설정에서 `autoMemoryEnabled`
+
+## 부분 요약 (Summarize from here)
+
+긴 대화에서 특정 메시지부터 요약할 수 있다:
+- 대화 중 원하는 시점의 메시지에서 "Summarize from here" 선택
+- 해당 시점 이후의 대화만 요약하여 컨텍스트 절약
+- 이전 맥락(설계 결정 등)은 원본 그대로 보존됨
+
+## 체크포인트
+
+Claude가 파일 변경 시 git 체크포인트를 자동 생성.
+`Esc Esc`로 이전 시점으로 되감기 가능 (대화 + 코드 모두).
+
+## Prompt Suggestions
+
+응답 후 회색으로 제안 프롬프트가 나타남:
+- `Tab`: 수락
+- `Enter`: 수락 + 바로 제출
+- 프롬프트 캐시를 재활용하므로 비용 최소

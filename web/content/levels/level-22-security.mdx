@@ -1,0 +1,512 @@
+---
+title: "보안 베스트 프랙티스"
+level: 22
+slug: "level-22-security"
+category: "실전"
+description: "Claude Code를 안전하게 사용하기 위한 보안 베스트 프랙티스"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/security"
+docsNote: "보안 가이드는 공식 문서 참조"
+prerequisites: ["level-03-settings", "level-07-hooks"]
+estimatedMinutes: 30
+tags: ["보안", "권한", "베스트 프랙티스", "안전"]
+---
+
+## 왜 보안이 중요한가?
+
+AI 코딩 도구는 파일을 읽고, 코드를 수정하고, 쉘 명령어를 실행한다. 잘못 설정하면 다음과 같은 리스크가 생긴다.
+
+- **민감 파일 노출**: `.env`, AWS 자격증명, 개인정보 포함 파일을 AI가 읽을 수 있다.
+- **의도치 않은 명령 실행**: 위험한 Bash 명령이 승인 없이 실행될 수 있다.
+- **비용 폭주**: 제한 없는 API 호출로 예상치 못한 청구가 발생할 수 있다.
+- **공급망 공격**: MCP 서버나 외부 의존성을 통한 코드 주입 위험이 있다.
+
+이 레벨에서는 이런 리스크를 체계적으로 줄이는 방법을 배운다.
+
+## 권한 모드 심화
+
+### 4가지 권한 모드
+
+Claude Code는 4가지 권한 모드를 제공한다. 상황에 맞는 모드를 선택하는 것이 보안의 첫 번째 단계다.
+
+```
+권한 모드 비교:
+
+default         → 모든 도구 사용, 위험 작업은 승인 요청
+                  (일반적인 대화형 작업에 적합)
+
+plan            → 읽기 전용 모드, 파일 수정 불가
+                  (코드 탐색, 계획 수립 단계에 적합)
+
+acceptEdits     → 파일 수정 자동 승인, Bash는 여전히 확인
+                  (신뢰할 수 있는 편집 작업에 적합)
+
+bypassPermissions → 모든 작업 자동 승인 (매우 위험)
+                    (완전히 통제된 Sandbox 환경에서만 사용)
+```
+
+### 평가 순서: deny > ask > allow
+
+설정 파일에서 권한이 충돌할 때는 항상 `deny`가 최우선이다.
+
+```json
+// .claude/settings.json
+{
+  "permissions": {
+    // deny: 절대 허용하지 않는 작업 (가장 높은 우선순위)
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(curl * | bash)",
+      "Read(.env)",
+      "Read(**/credentials*)"
+    ],
+    // ask: 실행 전 사람이 승인해야 하는 작업
+    // (deny에 해당하지 않는 Bash 명령은 기본적으로 ask)
+    "allow": [
+      "Read(**)",
+      "Bash(npm test)",
+      "Bash(npm run lint)"
+    ]
+  }
+}
+```
+
+> `deny > ask > allow` 순서를 기억하자. deny 목록에 있으면 allow에 있어도 차단된다.
+
+### 팀용 권한 설정 베스트 프랙티스
+
+```json
+// .claude/settings.json (팀 공유, git에 커밋)
+{
+  "permissions": {
+    "deny": [
+      // 위험한 시스템 명령 차단
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(chmod 777 *)",
+
+      // 민감 파일 읽기 차단
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/credentials*)",
+
+      // 외부 스크립트 실행 차단
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)"
+    ],
+    "allow": [
+      // 명시적으로 허용하는 안전한 작업만 나열
+      "Bash(npm test)",
+      "Bash(npm run *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
+    ]
+  }
+}
+```
+
+## 도구 권한 관리
+
+### `--tools`와 `--disallowedTools`로 도구 제한
+
+세션 단위로 사용 가능한 도구를 제한할 수 있다.
+
+```bash
+# 읽기 전용 분석 세션: 파일 읽기와 검색만 허용
+claude --tools "Read,Grep,Glob" \
+  -p "src/ 디렉토리의 보안 취약점을 분석해줘"
+
+# 테스트만 실행 허용: 파일 수정 없이 테스트만
+claude --tools "Bash(npm test)" \
+  -p "현재 테스트 실패 원인을 찾아줘"
+
+# 특정 도구 제외: Bash만 막고 나머지 허용
+claude --disallowedTools "Bash" \
+  -p "API 문서를 읽고 구현 계획을 세워줘"
+```
+
+### Bash 명령어 패턴 제한
+
+`Bash(패턴)` 형식으로 특정 명령만 허용하거나 차단할 수 있다.
+
+```json
+// .claude/settings.json
+{
+  "permissions": {
+    "allow": [
+      // npm 명령은 허용하되 install은 차단하고 싶다면
+      "Bash(npm test *)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)"
+      // "Bash(npm install *)" 는 추가하지 않음
+    ],
+    "deny": [
+      // 패키지 설치 차단 (공급망 공격 방지)
+      "Bash(npm install *)",
+      "Bash(pip install *)",
+      "Bash(brew install *)"
+    ]
+  }
+}
+```
+
+### 최소 권한 원칙 적용
+
+```
+최소 권한 원칙:
+"작업에 필요한 최소한의 권한만 부여한다"
+
+코드 탐색     → Read, Grep, Glob 만
+코드 리뷰     → Read, Grep, Glob + Bash(git diff)
+코드 작성     → 위 + Write, Edit
+테스트 실행   → 위 + Bash(npm test)
+전체 개발     → 위 + Bash(npm run *)
+
+→ 단계적으로 권한을 추가하는 것이 안전하다
+```
+
+## 시크릿 보호
+
+### deny 규칙으로 민감 파일 보호
+
+```json
+// .claude/settings.json
+{
+  "permissions": {
+    "deny": [
+      // 환경변수 파일
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.env.production)",
+      "Read(.env.*)",
+
+      // 자격증명 파일
+      "Read(**/credentials)",
+      "Read(**/credentials.json)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.ssh/id_rsa)",
+      "Read(~/.ssh/id_ed25519)",
+
+      // 토큰 파일
+      "Read(**/.token)",
+      "Read(**/secrets/**)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)"
+    ]
+  }
+}
+```
+
+### API 키를 코드에 직접 넣지 않기
+
+```bash
+# 나쁜 예: API 키를 직접 전달 (히스토리에 남음)
+claude -p "OPENAI_API_KEY=sk-abc123 로 API 호출 테스트해줘"
+
+# 좋은 예: 환경변수로 전달
+export OPENAI_API_KEY="sk-abc123"
+claude -p "OPENAI_API_KEY 환경변수를 사용해서 API 호출 테스트해줘"
+
+# 더 좋은 예: .env 파일 사용 (deny 규칙으로 AI 접근 차단)
+# .env 파일에 키 저장 → deny 규칙으로 AI는 읽지 못하게
+# 코드에서는 process.env.OPENAI_API_KEY 로 참조
+```
+
+### `.gitignore`와 함께 활용
+
+```bash
+# .gitignore
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials.json
+
+# CLAUDE.md 에 명시 (AI에게 알려주기)
+# "API 키와 비밀번호는 절대 코드에 직접 작성하지 마세요"
+# "환경변수(.env) 를 사용하고 .gitignore에 추가하세요"
+```
+
+## Hook을 이용한 보안 강화
+
+### PreToolUse에서 위험 명령 차단
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            // stdin으로 들어온 JSON에서 명령어를 추출해 위험 패턴 검사
+            "command": "python3 -c \"\nimport sys, json, re\ndata = json.load(sys.stdin)\ncmd = data.get('tool_input', {}).get('command', '')\n# 위험 패턴 목록\ndangerous = ['rm -rf', 'sudo ', 'curl.*|.*bash', 'wget.*|.*sh', 'dd if=']\nfor pattern in dangerous:\n    if re.search(pattern, cmd):\n        print(f'위험 명령 차단: {pattern}')\n        sys.exit(2)  # exit 2 = 차단\nsys.exit(0)\n\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Prompt Hook으로 보안 평가
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            // LLM이 코드 변경 내용을 보안 관점에서 검토
+            "prompt": "다음 코드 변경이 보안 취약점(SQL 인젝션, XSS, 하드코딩된 시크릿 등)을 만드는지 검토해줘. 취약점이 있으면 exit 2로 차단하고 이유를 설명해줘."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### PostToolUse에서 감사 로그 기록
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            // 모든 파일 수정과 명령 실행을 로그에 기록
+            "command": "python3 -c \"\nimport sys, json\nfrom datetime import datetime\ndata = json.load(sys.stdin)\nlog_entry = {\n    'timestamp': datetime.now().isoformat(),\n    'tool': data.get('tool_name'),\n    'input': data.get('tool_input'),\n    'session': data.get('session_id')\n}\nwith open('/tmp/claude-audit.log', 'a') as f:\n    f.write(json.dumps(log_entry, ensure_ascii=False) + '\\n')\n\"",
+            "timeout": 3000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 네트워크 보안
+
+### WebFetch 도구 제한
+
+```json
+// .claude/settings.json
+{
+  "permissions": {
+    "deny": [
+      // 외부 URL 접근 전면 차단 (내부 작업만 허용)
+      "WebFetch(*)"
+    ],
+    "allow": [
+      // 특정 도메인만 허용하고 싶다면 WebFetch를 allow에 명시
+      // (현재 WebFetch는 도메인 패턴 필터링 지원 확인 필요)
+    ]
+  }
+}
+```
+
+### HTTP Hook의 `allowedDomains` 설정
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    // allowedDomains: HTTP Hook이 호출할 수 있는 도메인 명시 (필수)
+    "allowedDomains": [
+      "hooks.slack.com",         // Slack 알림
+      "api.github.com",          // GitHub Actions 트리거
+      "my-internal-server.corp"  // 내부 서버
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "http",
+            // allowedDomains에 없는 도메인은 자동 차단됨
+            "url": "https://hooks.slack.com/services/XXX/YYY/ZZZ",
+            "method": "POST",
+            "headers": { "Content-Type": "application/json" },
+            "body": "{\"text\": \"파일이 수정되었습니다\"}"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### MCP 서버 접근 제어
+
+```json
+// .claude/settings.json
+{
+  "mcpServers": {
+    // 신뢰할 수 있는 서버만 등록
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem",
+               // 접근 허용 디렉토리를 명시적으로 제한
+               "/Users/me/projects/my-project"]
+    }
+    // 출처 불명의 MCP 서버는 절대 추가하지 않는다
+  }
+}
+```
+
+## Sandbox 활용
+
+### Sandbox가 보안에 도움되는 이유
+
+Sandbox는 Claude Code의 실행 환경을 격리한다. 잘못된 명령이 실행되어도 호스트 시스템에 영향을 주지 않는다.
+
+```
+Sandbox 없음:
+  Claude → 호스트 파일시스템 직접 접근
+  Claude → 호스트 네트워크 직접 사용
+  → 실수 또는 악의적 코드가 호스트에 영향
+
+Sandbox 있음:
+  Claude → 격리된 컨테이너/환경 내에서만 실행
+  → 컨테이너 밖의 파일과 네트워크는 접근 불가
+  → 실수해도 호스트는 안전
+```
+
+### macOS Docker Sandbox vs Firewalled Linux Sandbox
+
+```bash
+# macOS: Docker 기반 Sandbox
+# Docker Desktop이 설치되어 있어야 함
+claude --sandbox docker \
+  -p "이 스크립트를 실행해줘 (격리 환경에서)"
+
+# Linux: 방화벽 기반 Sandbox
+# 네트워크 접근을 차단하고 파일시스템을 제한
+claude --sandbox firewall \
+  -p "패키지 설치 후 테스트를 실행해줘"
+
+# Sandbox 모드 비교
+# Docker:   강한 격리 (별도 컨테이너), 느림
+# Firewall: 가벼운 격리 (네트워크 차단), 빠름
+# 선택 기준: 신뢰도가 낮은 코드 → Docker, 일반 작업 → Firewall
+```
+
+## CI/CD 환경 보안
+
+### 환경변수로 API 키 전달
+
+```yaml
+# .github/workflows/claude-review.yml
+name: Claude Code Review
+
+on: [pull_request]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Claude Code Review
+        env:
+          # GitHub Secrets에서 안전하게 주입 (코드에 노출 없음)
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude --headless \
+            --disallowedTools "Bash,Write,Edit" \
+            -p "변경된 파일을 리뷰해줘"
+```
+
+### `--max-budget-usd`로 비용 폭주 방지
+
+```bash
+# CI 환경: 최대 비용 한도 설정
+claude --headless \
+  --max-budget-usd 0.50 \     # 한 번 실행에 최대 $0.50
+  --disallowedTools "Bash" \   # Bash 실행 차단
+  -p "PR #123의 변경 사항을 검토해줘"
+
+# 예산 초과 시 Claude가 자동으로 중단됨
+# → 잘못된 루프나 예상치 못한 비용 폭주 방지
+```
+
+### headless 모드에서 최소 도구만 허용
+
+```bash
+# CI 환경 베스트 프랙티스: 필요한 도구만 명시
+claude --headless \
+  --tools "Read,Grep,Glob" \          # 읽기 전용 도구만
+  --max-budget-usd 1.00 \             # 비용 한도
+  --model claude-sonnet-4-5 \         # 비용 효율적인 모델
+  -p "코드베이스에서 보안 취약점을 찾아줘"
+
+# headless 모드에서 --yes 플래그는 위험
+# → 모든 권한 요청을 자동 승인하므로 신뢰된 환경에서만 사용
+```
+
+## 보안 체크리스트
+
+```
+Claude Code 보안 설정 체크리스트:
+
+권한 설정
+□ deny 목록에 위험한 Bash 명령(rm -rf, sudo, curl|bash)이 있는가?
+□ 민감 파일(.env, credentials, *.key)이 deny 목록에 있는가?
+□ allow 목록은 실제로 필요한 것만 포함하는가?
+
+도구 관리
+□ 작업 유형에 맞게 --tools 또는 --disallowedTools를 사용하는가?
+□ 읽기 전용 작업에 Write/Edit 도구가 제외되어 있는가?
+□ CI 환경에서 Bash 도구가 제한되어 있는가?
+
+시크릿 보호
+□ API 키가 코드나 프롬프트에 직접 노출되지 않는가?
+□ .env 파일이 .gitignore에 포함되어 있는가?
+□ 민감 파일 경로가 deny 규칙으로 보호되고 있는가?
+
+Hook 보안
+□ PreToolUse Hook으로 위험 명령을 사전 차단하는가?
+□ PostToolUse Hook으로 감사 로그를 기록하는가?
+□ HTTP Hook에 allowedDomains가 명시되어 있는가?
+
+CI/CD
+□ ANTHROPIC_API_KEY가 Secrets에 저장되어 있는가?
+□ --max-budget-usd로 비용 한도가 설정되어 있는가?
+□ headless 모드에서 최소 도구만 허용되어 있는가?
+```
+
+## 핵심 정리
+
+```
+보안의 기본 원칙:
+
+deny > ask > allow    → 충돌 시 deny가 최우선
+최소 권한 원칙        → 필요한 도구와 권한만 부여
+시크릿 보호           → deny 규칙 + 환경변수 사용
+Hook 활용             → PreToolUse 차단 + PostToolUse 로깅
+Sandbox               → 신뢰 낮은 코드는 격리 환경에서
+CI/CD                 → Secrets + max-budget + 최소 도구
+allowedDomains        → HTTP Hook 도메인 화이트리스트
+
+핵심 설정 파일:
+  .claude/settings.json → deny/allow 권한 규칙
+  .claude/settings.local.json → 개인용 (git 제외)
+  CLAUDE.md → AI에게 보안 규칙 명시
+```

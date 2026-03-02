@@ -1,0 +1,469 @@
+---
+title: "고급 CLI 옵션"
+level: 18
+slug: "level-18-deep-advanced-cli"
+category: "심화"
+description: "--tools, --fork-session, claude auth 등 고급 CLI 활용"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "CLI 전체 옵션은 공식 문서 참조"
+prerequisites: ["level-10-sdk"]
+estimatedMinutes: 30
+tags: ["CLI", "인증", "도구", "세션", "플랜 모드"]
+---
+
+## Claude Code CLI 전체 옵션 개요
+
+Level 1에서 기본 CLI를 배웠다면, 이 레벨에서는 자동화·보안·멀티모달 작업에 필수적인
+**고급 옵션들**을 깊이 파고든다.
+
+```bash
+# 전체 옵션 확인
+claude --help
+```
+
+## `--tools` 플래그: 사용 가능 도구 지정
+
+Claude가 사용할 수 있는 도구(tool)를 명시적으로 제한한다.
+`--allowedTools`와 동일하며, 최소 권한 원칙(least privilege)을 CLI에서 구현하는 방법이다.
+
+```bash
+# 읽기 전용 도구만 허용 (파일 읽기 + 검색만 가능)
+claude --tools "Read,Glob,Grep" -p "src 디렉토리 구조를 분석해줘"
+
+# 편집 도구만 허용
+claude --tools "Edit,Write" -p "TODO 주석을 모두 정리해줘"
+
+# Bash를 특정 명령으로만 제한
+claude --tools "Bash(npm test),Bash(npm run lint)" -p "테스트하고 린트 실행해줘"
+
+# 모든 도구 차단 (순수 텍스트 응답만)
+claude --tools "" -p "React hooks를 간단히 설명해줘"
+```
+
+### 도구 종류 참조표
+
+| 도구 이름 | 기능 | 보안 위험도 |
+|-----------|------|------------|
+| `Read` | 파일 읽기 | 낮음 |
+| `Glob` | 파일 목록 검색 | 낮음 |
+| `Grep` | 파일 내용 검색 | 낮음 |
+| `Edit` | 파일 수정 | 중간 |
+| `Write` | 파일 생성 | 중간 |
+| `Bash` | 셸 명령 실행 | 높음 |
+| `WebFetch` | 웹 요청 | 중간 |
+| `Task` | 서브에이전트 실행 | 높음 |
+
+### `--disallowedTools`로 특정 도구 차단
+
+```bash
+# Bash만 차단하고 나머지 모두 허용
+claude --disallowedTools "Bash,WebFetch" -p "코드를 리뷰해줘"
+```
+
+## `--fork-session`: 세션 포크
+
+현재 세션의 컨텍스트를 **복사**하여 새로운 독립 세션을 만든다.
+원본 세션에 영향을 주지 않고 다른 방향을 탐색할 때 유용하다.
+
+```bash
+# 현재 세션 ID 확인
+claude /status
+
+# 특정 세션을 포크
+claude --fork-session <session-id>
+
+# 포크 후 다른 접근법 시도
+# 원본 세션: feature-A 방향으로 계속 진행
+# 포크 세션: feature-B 방향 탐색
+```
+
+### 포크 세션 활용 시나리오
+
+```
+원본 세션 (session-abc123)
+├── 기능 설계 논의
+├── 컨텍스트 누적
+└── 구현 방향 A 탐색
+       │
+       ▼ --fork-session
+포크 세션 (session-xyz789)
+├── 동일한 컨텍스트 상속
+└── 구현 방향 B 탐색 (원본 영향 없음)
+```
+
+> Worktree(`--worktree`)가 파일 시스템을 격리한다면,
+> `--fork-session`은 **대화 컨텍스트**를 격리한다. 두 개념을 함께 이해하면 좋다.
+
+## `claude auth` 인증 관리
+
+여러 Anthropic 계정이나 조직을 전환할 때 사용하는 인증 관리 명령어다.
+
+```bash
+# 현재 인증 상태 확인
+claude auth status
+
+# 새 계정으로 로그인 (브라우저 인증 흐름)
+claude auth login
+
+# 로그아웃
+claude auth logout
+
+# 다른 계정/프로필로 전환
+claude auth switch
+
+# API 키 직접 지정 (비대화형 환경)
+ANTHROPIC_API_KEY=sk-ant-... claude -p "hello"
+```
+
+### 다중 계정 관리 전략
+
+```bash
+# 개인 계정 (기본)
+claude auth login
+
+# 회사 계정으로 전환
+claude auth switch --profile work
+
+# CI/CD에서는 환경변수 사용
+export ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
+claude -p "빌드 분석"
+```
+
+### 인증 설정 파일 위치
+
+```
+~/.claude/
+├── auth.json          # 인증 토큰 (절대 git에 커밋하지 말 것)
+└── credentials/       # 프로필별 인증 정보
+```
+
+> `auth.json`은 `~/.gitignore`에 반드시 포함해야 한다.
+
+## `--add-dir`: 추가 디렉토리 지정
+
+기본적으로 Claude Code는 현재 디렉토리를 컨텍스트로 사용한다.
+`--add-dir`로 **다른 위치의 디렉토리도 컨텍스트에 추가**할 수 있다.
+
+```bash
+# 공통 라이브러리 + 현재 프로젝트를 함께 컨텍스트로
+claude --add-dir /workspace/shared-lib -p "shared-lib의 타입을 참고해서 이 컴포넌트를 수정해줘"
+
+# 여러 디렉토리 추가
+claude \
+  --add-dir /workspace/design-system \
+  --add-dir /workspace/api-types \
+  -p "디자인 시스템과 API 타입을 참고해서 새 페이지를 만들어줘"
+
+# 설정 파일로 고정
+```
+
+### 설정 파일로 `additionalDirectories` 지정
+
+```json
+// .claude/settings.json
+{
+  "additionalDirectories": [
+    "/workspace/shared-lib",
+    "/workspace/design-tokens"
+  ]
+}
+```
+
+> 모노레포에서 공통 패키지를 자주 참조한다면 설정 파일에 고정하는 것이 편리하다.
+
+## `claude config` 설정 관리
+
+CLI에서 직접 설정값을 읽고 쓸 수 있다.
+
+```bash
+# 현재 설정 전체 조회
+claude config list
+
+# 특정 설정값 읽기
+claude config get model
+
+# 설정값 변경 (전역)
+claude config set model claude-sonnet-4-5
+
+# 프로젝트 수준으로 설정 (현재 디렉토리 .claude/settings.json)
+claude config set --project sandbox true
+
+# 설정 초기화
+claude config unset model
+```
+
+### 주요 설정 키
+
+| 키 | 설명 | 예시 값 |
+|----|------|---------|
+| `model` | 기본 모델 | `claude-opus-4-5` |
+| `sandbox` | Sandbox 모드 | `true` |
+| `permissionMode` | 권한 모드 | `plan` |
+| `effortLevel` | 노력 수준 | `low` / `high` |
+| `theme` | UI 테마 | `dark` |
+
+## `--verbose`: 상세 출력
+
+디버깅이나 자동화 파이프라인에서 Claude의 내부 동작을 자세히 보고 싶을 때 사용한다.
+
+```bash
+# 상세 출력 활성화
+claude --verbose -p "src 폴더를 분석해줘"
+
+# 출력 내용:
+# - 각 도구 호출 시작/완료 로그
+# - 토큰 사용량
+# - 처리 시간
+# - API 요청/응답 헤더 (디버그 수준)
+
+# JSON 출력과 조합 (파이프라인 분석용)
+claude --verbose --output-format json -p "분석" 2> debug.log
+```
+
+### `--verbose` vs `/status`
+
+| 비교 | `--verbose` | `/status` |
+|------|------------|-----------|
+| 타이밍 | 실행 중 실시간 | 슬래시 커맨드로 요청 |
+| 범위 | 전체 세션 | 현재 순간 |
+| 용도 | 디버깅 | 현황 확인 |
+
+## 멀티모달 입력: 이미지 처리
+
+Claude Code는 **이미지도 입력으로 받을 수 있다**.
+
+### 방법 1: `Ctrl+V` 붙여넣기
+
+```
+1. 스크린샷이나 이미지를 클립보드에 복사
+2. Claude Code 프롬프트에서 Ctrl+V
+3. 이미지가 인라인으로 첨부됨
+4. 질문 입력 후 Enter
+```
+
+### 방법 2: 파일 경로로 이미지 참조
+
+```bash
+# 이미지 파일을 직접 참조
+claude -p "이 UI 디자인을 React 컴포넌트로 구현해줘" \
+  --image ./designs/mockup.png
+
+# 여러 이미지 비교
+claude -p "두 화면의 차이점을 분석하고 A/B 테스트 가설을 세워줘" \
+  --image ./screen-a.png \
+  --image ./screen-b.png
+```
+
+### 방법 3: 파이프로 이미지 데이터 전달
+
+```bash
+# base64 인코딩 이미지 전달
+base64 -i screenshot.png | \
+  claude -p "이 에러 화면을 분석해줘" --image-stdin
+```
+
+### 멀티모달 활용 시나리오
+
+```
+디자인 → 코드 변환
+  figma 스크린샷 → React 컴포넌트 자동 생성
+
+에러 분석
+  에러 화면 스크린샷 → 원인 분석 및 수정
+
+문서 처리
+  다이어그램 이미지 → 코드 구조 추출
+
+UI 리뷰
+  현재 UI + 목표 디자인 비교 → 개선 제안
+```
+
+## 실습 예시
+
+### 실습 1: 최소 권한 자동화 스크립트
+
+```bash
+#!/bin/bash
+# secure-analyze.sh - 읽기 전용으로 코드 품질 분석
+
+PROJECT_DIR=${1:-.}
+
+echo "분석 시작: $PROJECT_DIR"
+
+# 읽기 도구만 허용하여 안전하게 분석
+claude \
+  --tools "Read,Glob,Grep" \
+  --output-format json \
+  -p "
+    $PROJECT_DIR 의 다음을 분석해줘:
+    1. 파일 구조 개요
+    2. 코드 복잡도가 높은 파일 Top 5
+    3. 중복 코드 패턴
+    JSON 형식으로 반환해줘.
+  " > analysis-$(date +%Y%m%d).json
+
+echo "결과: analysis-$(date +%Y%m%d).json"
+```
+
+### 실습 2: 다중 계정 워크플로
+
+```bash
+#!/bin/bash
+# 개인 프로젝트: 개인 계정 사용
+work_on_personal() {
+  claude auth switch --profile personal
+  cd ~/personal-project
+  claude -p "$1"
+}
+
+# 회사 프로젝트: 회사 계정 사용
+work_on_company() {
+  claude auth switch --profile company
+  cd ~/company-project
+  claude -p "$1"
+}
+
+work_on_company "이 PR을 리뷰해줘"
+```
+
+### 실습 3: 이미지 기반 UI 구현
+
+```bash
+# 1. Figma 스크린샷을 클립보드에 복사
+# 2. Claude Code 시작
+claude --tools "Edit,Write,Read"
+
+# 프롬프트에서:
+# Ctrl+V 로 이미지 붙여넣기
+# "이 디자인을 TailwindCSS + React로 구현해줘.
+#  반응형이어야 하고, 다크모드도 지원해야 해."
+```
+
+### 실습 4: `--add-dir`로 모노레포 작업
+
+```bash
+# 패키지 A를 수정하면서 패키지 B의 타입을 참조
+cd packages/package-a
+claude \
+  --add-dir ../package-b/src \
+  --add-dir ../shared/types \
+  --tools "Edit,Read,Bash(npm run type-check)" \
+  -p "package-b의 UserProfile 타입을 사용해서 ProfileCard 컴포넌트를 만들어줘"
+```
+
+## 고급 옵션 조합 패턴
+
+```bash
+# 최고 보안 모드: Sandbox + 읽기 전용 + 상세 로그
+claude --sandbox \
+       --tools "Read,Glob,Grep" \
+       --verbose \
+       --model claude-opus-4-5 \
+       --fallback-model claude-sonnet-4-5 \
+       -p "보안 감사 실행"
+
+# 최고 속도 모드: Haiku + 낮은 노력 + JSON 출력
+claude --model claude-haiku-4-5 \
+       --effort low \
+       --output-format json \
+       --tools "Read,Glob" \
+       -p "파일 목록 수집"
+
+# 대화형 고급 세션
+claude --model claude-opus-4-5 \
+       --add-dir /workspace/shared \
+       --permission-mode plan \
+       --verbose
+```
+
+## Plan Mode 심화
+
+Level 3에서 권한 모드로 `plan`을 배웠다. 여기서는 Plan Mode를 **전략적으로 활용**하는 방법을 깊이 다룬다.
+
+### Plan Mode란?
+
+Plan Mode는 Claude가 코드를 **읽기만** 하고, 변경하기 전에 **계획을 먼저 제시**하는 모드다.
+파일 수정이나 명령어 실행 없이 탐색과 분석만 수행한다.
+
+### Plan Mode 진입 방법
+
+```bash
+# 방법 1: 세션 시작 시
+claude --permission-mode plan
+
+# 방법 2: 세션 중 슬래시 커맨드
+/plan
+
+# 방법 3: 세션 중 키보드
+Shift+Tab  # 권한 모드 순환 (default → plan → acceptEdits → ...)
+```
+
+### Plan Mode 워크플로
+
+```
+1. /plan 진입
+     ↓
+2. Claude가 코드베이스를 탐색 (Read, Glob, Grep만 사용)
+     ↓
+3. 변경 계획을 마크다운으로 제시
+     ↓
+4. 사용자가 계획을 검토하고 피드백
+     ↓
+5. 계획 확정 후 Shift+Tab으로 실행 모드 전환
+     ↓
+6. Claude가 계획대로 코드 수정
+```
+
+### Plan Mode가 유용한 상황
+
+| 상황 | 이유 |
+|------|------|
+| 새 코드베이스 파악 | 코드를 변경하지 않고 안전하게 탐색 |
+| 대규모 리팩토링 전 | 영향 범위를 먼저 파악 |
+| 팀원에게 공유할 계획 | 실행 전 계획서로 리뷰 |
+| 비용 예측 | 실제 수정 전 작업 범위 확인 |
+| 위험한 변경 전 | 실수로 인한 피해 방지 |
+
+### 실습: Plan Mode로 리팩토링 계획하기
+
+```bash
+# 1단계: Plan Mode로 시작
+claude --permission-mode plan
+
+# 프롬프트:
+# "src/services/ 디렉토리의 모든 서비스를 분석하고,
+#  의존성 순환이 있는지 확인한 후,
+#  리팩토링 계획을 세워줘."
+
+# 2단계: 계획 검토 후 실행 모드 전환
+# Shift+Tab → acceptEdits 모드
+
+# 3단계: 계획에 따라 수정 실행
+# "방금 세운 계획대로 리팩토링을 진행해줘."
+```
+
+### Plan Mode + Headless 조합
+
+```bash
+# Plan Mode를 headless로 사용 — 계획만 받아서 검토
+claude --permission-mode plan \
+  -p "이 프로젝트의 보안 취약점을 분석하고 수정 계획을 JSON으로 만들어줘" \
+  --output-format json \
+  --tools "Read,Glob,Grep"
+```
+
+## 핵심 정리
+
+```
+--tools              → 허용 도구를 명시적으로 지정 (최소 권한)
+--disallowedTools    → 특정 도구 차단
+--fork-session       → 대화 컨텍스트를 복사하여 독립 세션 생성
+claude auth          → 다중 계정 인증 관리
+--add-dir            → 추가 디렉토리를 컨텍스트에 포함
+claude config        → CLI로 설정값 읽기/쓰기
+--verbose            → 내부 동작 상세 출력
+Ctrl+V               → 이미지를 대화에 붙여넣기
+--permission-mode plan → 읽기 전용 탐색 + 계획 모드
+```

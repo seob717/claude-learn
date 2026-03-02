@@ -1,0 +1,110 @@
+---
+title: "MCP 서버"
+level: 8
+slug: "level-08-mcp"
+category: "확장"
+description: "Model Context Protocol로 외부 서비스 연동하기"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/mcp"
+docsNote: "MCP 서버 설정과 프로토콜 상세는 공식 문서 참조"
+prerequisites: ["level-03-settings"]
+estimatedMinutes: 35
+tags: ["MCP", "프로토콜", "외부 연동", "도구"]
+---
+
+## MCP (Model Context Protocol)란?
+
+AI 도구를 외부 데이터 소스에 연결하는 **개방형 표준 프로토콜**.
+Claude Code가 GitHub, 파일 시스템, DB 등 외부 서비스의 도구를 사용할 수 있게 해준다.
+
+## 전송 방식 3가지
+
+| 방식 | 설명 | 예시 |
+|------|------|------|
+| `http` (권장) | 원격 HTTP 서버 | `https://mcp.notion.com/mcp` |
+| `sse` (레거시) | Server-Sent Events | `https://mcp.asana.com/sse` |
+| `stdio` | 로컬 프로세스 | `npx -y @modelcontextprotocol/server-github` |
+
+## CLI로 MCP 서버 관리
+
+```bash
+# 추가
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+claude mcp add --transport stdio github -- npx -y @modelcontextprotocol/server-github
+claude mcp add --transport stdio --env API_KEY=xxx airtable -- npx -y airtable-mcp
+
+# 목록 / 상세 / 제거
+claude mcp list
+claude mcp get github
+claude mcp remove github
+
+# Claude Desktop에서 가져오기
+claude mcp add-from-claude-desktop
+```
+
+## 범위 (Scope)
+
+| 범위 | 저장 위치 | 공유 여부 |
+|------|-----------|-----------|
+| `local` (기본) | `~/.claude.json` 프로젝트별 | X |
+| `project` | `.mcp.json` 프로젝트 루트 | O (git 커밋) |
+| `user` | `~/.claude.json` 전역 | X |
+
+## 프로젝트 공유 설정 (.mcp.json)
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@bytebase/dbhub", "--dsn", "postgresql://localhost:5432/mydb"],
+      "env": {}
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-filesystem", "/Users/me/project"]
+    }
+  }
+}
+```
+
+환경 변수 확장 지원: `${VAR}`, `${VAR:-default}`
+
+## MCP Tool Search
+
+MCP 도구가 많아지면 자동으로 on-demand 로딩 모드 활성화:
+
+```bash
+ENABLE_TOOL_SEARCH=auto:5 claude   # 5% 임계값
+ENABLE_TOOL_SEARCH=false claude    # 비활성화
+```
+
+## Claude Code를 MCP 서버로 사용
+
+```bash
+claude mcp serve   # 다른 AI 도구가 Claude Code를 도구로 사용할 수 있음
+```
+
+## 세션 내 관리
+
+```
+/mcp               # MCP 서버 상태 확인, OAuth 인증
+```
+
+## 실습: MCP 서버 추가해보기
+
+```bash
+# Context7 (문서 검색)
+claude mcp add --transport stdio context7 -- npx -y @anthropic/context7-mcp
+
+# Playwright (브라우저 자동화)
+claude mcp add --transport stdio playwright -- npx -y @anthropic/mcp-server-playwright
+
+# 설정 확인
+claude mcp list
+```

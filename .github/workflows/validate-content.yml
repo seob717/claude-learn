@@ -1,0 +1,174 @@
+# validate-content.yml
+# GitHub Actions 워크플로우: MDX 콘텐츠 자동 검증
+# 트리거: PR 이벤트(opened/synchronize/reopened) + 수동 실행(workflow_dispatch)
+# 주요 검증 항목:
+#   1. URL 링크 유효성 (깨진 링크 감지)
+#   2. 코드 블록 문법 (bash/json 구문 오류 감지)
+#   3. 커리큘럼 커버리지 (로드맵 대비 90% 이상 커버 여부)
+
+name: Validate Content
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:  # 수동 실행 허용 (Actions 탭에서 직접 실행 가능)
+
+jobs:
+  validate:
+    name: Content Validation
+    runs-on: ubuntu-latest
+
+    # PR 댓글 작성 권한 부여
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      # 1. 소스 코드 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Python 3.x 환경 설정 (커버리지 검사 스크립트용)
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # 3. 스크립트 실행 권한 부여 (git에서 권한이 누락될 수 있으므로 명시적으로 설정)
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/validate-links.sh
+          chmod +x scripts/validate-code-blocks.sh
+          chmod +x scripts/validate-curriculum-coverage.py
+          chmod +x scripts/validate-all.sh
+
+      # 4. URL 링크 유효성 검사
+      # continue-on-error: true - 링크 오류가 있어도 다음 단계 계속 진행
+      # (외부 URL은 일시적으로 접근 불가할 수 있으므로 비차단)
+      - name: Run validate-links.sh
+        id: links
+        continue-on-error: true
+        run: |
+          # 결과를 파일에도 저장 (PR 댓글에서 활용)
+          bash scripts/validate-links.sh 2>&1 | tee /tmp/links-result.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      # 5. 코드 블록 문법 검사
+      # continue-on-error: true - 문법 오류가 있어도 다음 단계 계속 진행
+      - name: Run validate-code-blocks.sh
+        id: codeblocks
+        continue-on-error: true
+        run: |
+          bash scripts/validate-code-blocks.sh 2>&1 | tee /tmp/codeblocks-result.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      # 6. 커리큘럼 커버리지 검사 (필수 통과 항목)
+      # continue-on-error: false (기본값) - 커버리지 미달 시 워크플로우 실패 처리
+      - name: Run validate-curriculum-coverage.py
+        id: coverage
+        run: |
+          python3 scripts/validate-curriculum-coverage.py 2>&1 | tee /tmp/coverage-result.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      # 7. PR에 검증 결과 댓글 작성
+      # actions/github-script를 사용하여 PR 댓글에 결과 요약을 남깁니다.
+      # workflow_dispatch로 실행된 경우(PR 없음)에는 댓글 작성을 건너뜁니다.
+      - name: Comment results on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            // 각 검증 결과 파일 읽기 (파일이 없으면 빈 문자열로 처리)
+            const readResult = (path) => {
+              try {
+                return fs.readFileSync(path, 'utf8').trim();
+              } catch {
+                return '결과 파일을 읽을 수 없습니다.';
+              }
+            };
+
+            const linksResult = readResult('/tmp/links-result.txt');
+            const codeblocksResult = readResult('/tmp/codeblocks-result.txt');
+            const coverageResult = readResult('/tmp/coverage-result.txt');
+
+            // 각 스텝의 결과 상태 (success/failure)
+            const linksStatus = '${{ steps.links.outcome }}' === 'success' ? '✅ 통과' : '❌ 실패';
+            const codeblocksStatus = '${{ steps.codeblocks.outcome }}' === 'success' ? '✅ 통과' : '❌ 실패';
+            const coverageStatus = '${{ steps.coverage.outcome }}' === 'success' ? '✅ 통과' : '❌ 실패';
+
+            // 전체 상태 판단
+            const allPassed = ['${{ steps.links.outcome }}', '${{ steps.codeblocks.outcome }}', '${{ steps.coverage.outcome }}']
+              .every(s => s === 'success');
+            const overallStatus = allPassed ? '✅ 모든 검증 통과' : '⚠️ 일부 검증 실패';
+
+            // PR 댓글 본문 작성 (마크다운 형식)
+            const body = [
+              '## 콘텐츠 검증 결과',
+              '',
+              `**전체 상태**: ${overallStatus}`,
+              '',
+              '| 검증 항목 | 상태 |',
+              '|-----------|------|',
+              `| URL 링크 유효성 | ${linksStatus} |`,
+              `| 코드 블록 문법 | ${codeblocksStatus} |`,
+              `| 커리큘럼 커버리지 | ${coverageStatus} |`,
+              '',
+              '<details>',
+              '<summary>URL 링크 검사 상세 결과</summary>',
+              '',
+              '```',
+              linksResult.slice(0, 3000) + (linksResult.length > 3000 ? '\n... (결과가 너무 길어 생략)' : ''),
+              '```',
+              '</details>',
+              '',
+              '<details>',
+              '<summary>코드 블록 검사 상세 결과</summary>',
+              '',
+              '```',
+              codeblocksResult.slice(0, 3000) + (codeblocksResult.length > 3000 ? '\n... (결과가 너무 길어 생략)' : ''),
+              '```',
+              '</details>',
+              '',
+              '<details>',
+              '<summary>커리큘럼 커버리지 상세 결과</summary>',
+              '',
+              '```',
+              coverageResult.slice(0, 3000) + (coverageResult.length > 3000 ? '\n... (결과가 너무 길어 생략)' : ''),
+              '```',
+              '</details>',
+              '',
+              `> 🤖 자동 생성된 검증 리포트 | 커밋: \`${{ github.sha }}\``,
+            ].join('\n');
+
+            // 기존 봇 댓글이 있으면 업데이트, 없으면 새로 생성
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            // 이전에 이 워크플로우가 남긴 댓글 찾기 (헤더로 식별)
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('## 콘텐츠 검증 결과')
+            );
+
+            if (botComment) {
+              // 기존 댓글 업데이트 (중복 댓글 방지)
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body,
+              });
+            } else {
+              // 새 댓글 생성
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

@@ -1,0 +1,163 @@
+---
+title: "SDK / Headless 모드"
+level: 10
+slug: "level-10-sdk"
+category: "확장"
+description: "비대화형 실행, JSON 출력, 파이프라인 자동화"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/sdk"
+docsNote: "SDK 상세 API와 출력 형식은 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 30
+tags: ["SDK", "headless", "자동화", "파이프라인", "출력 형식"]
+---
+
+## 비대화형 실행 (-p 플래그)
+
+```bash
+# 기본
+claude -p "auth.py의 버그를 찾아서 수정해줘"
+
+# 도구 허용 지정
+claude -p "테스트 실행하고 실패 수정" --allowedTools "Bash,Read,Edit"
+
+# JSON 출력
+claude -p "이 프로젝트 요약" --output-format json
+
+# 스키마 준수 JSON 출력
+claude -p "함수 이름 추출" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}}}'
+
+# 스트리밍
+claude -p "재귀 설명" --output-format stream-json --verbose
+
+# 세션 이어하기
+session_id=$(claude -p "리뷰 시작" --output-format json | jq -r '.session_id')
+claude -p "리뷰 계속" --resume "$session_id"
+```
+
+## 시스템 프롬프트 커스텀
+
+```bash
+# 기본 프롬프트에 추가 (권장)
+claude --append-system-prompt "항상 TypeScript 사용"
+
+# 전체 교체
+claude --system-prompt "너는 Python 전문가야"
+
+# 파일에서 로드
+claude -p --system-prompt-file ./custom-prompt.txt "질문"
+```
+
+## 예산/턴 제한
+
+```bash
+claude -p --max-budget-usd 5.00 "복잡한 작업"
+claude -p --max-turns 3 "간단한 작업"
+```
+
+## Output Styles (출력 형식)
+
+`--output-format` 플래그로 Claude Code의 출력 형식을 제어한다. 자동화 파이프라인에서 핵심적인 기능이다.
+
+### 출력 형식 비교표
+
+| 형식 | 플래그 | 용도 | 특징 |
+|------|--------|------|------|
+| Text | `--output-format text` | 사람이 읽는 용도 | 기본값, 마크다운 서식 |
+| JSON | `--output-format json` | 프로그래밍 파싱 | 완료 후 전체 응답을 JSON으로 |
+| Stream JSON | `--output-format stream-json` | 실시간 처리 | 각 이벤트를 JSON 라인으로 스트리밍 |
+
+### Text 출력 (기본)
+
+```bash
+# 기본 텍스트 출력 — 사람이 읽기 좋은 마크다운 형식
+claude -p "src/main.ts를 분석해줘"
+```
+
+### JSON 출력
+
+```bash
+# JSON으로 받아서 프로그래밍적으로 처리
+result=$(claude -p "이 프로젝트의 함수 목록을 추출해줘" --output-format json)
+
+# jq로 필요한 필드 추출
+echo "$result" | jq '.result'
+echo "$result" | jq '.session_id'
+echo "$result" | jq '.cost_usd'
+```
+
+JSON 응답 구조:
+```json
+{
+  "type": "result",
+  "result": "Claude의 응답 텍스트",
+  "session_id": "세션 ID",
+  "cost_usd": 0.05,
+  "is_error": false,
+  "duration_ms": 3200,
+  "num_turns": 2
+}
+```
+
+### Stream JSON 출력
+
+```bash
+# 실시간 스트리밍 — 각 줄이 독립적인 JSON 이벤트
+claude -p "큰 파일을 분석해줘" --output-format stream-json | while IFS= read -r line; do
+  # 각 이벤트 타입별 처리
+  event_type=$(echo "$line" | jq -r '.type')
+  case "$event_type" in
+    "assistant") echo "응답 시작..." ;;
+    "content_block_delta") echo "$line" | jq -r '.delta.text // empty' ;;
+    "result") echo "완료! 비용: $(echo "$line" | jq '.cost_usd')" ;;
+  esac
+done
+```
+
+### JSON Schema 강제
+
+```bash
+# 구조화된 JSON 출력 — 스키마를 지정하여 형식 강제
+claude -p "src/ 디렉토리의 파일별 줄 수를 분석해줘" \
+  --output-format json \
+  --json-schema '{
+    "type": "object",
+    "properties": {
+      "files": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": {"type": "string"},
+            "lines": {"type": "integer"}
+          }
+        }
+      },
+      "total": {"type": "integer"}
+    }
+  }'
+```
+
+> Output Styles는 CI/CD 파이프라인, 자동화 스크립트, 다른 도구와의 연동에서 핵심 역할을 한다.
+> Level 18의 `--verbose`와 조합하면 디버깅 정보와 구조화된 출력을 동시에 얻을 수 있다.
+
+## 실습: 파이프라인으로 활용
+
+```bash
+# 코드 리뷰 자동화
+cat src/main.js | claude -p "이 코드를 리뷰해줘" --output-format json
+
+# 여러 파일 일괄 처리
+for f in src/*.js; do
+  claude -p "이 파일의 TODO를 찾아줘: $(cat $f)" --max-turns 1
+done
+
+# CI/CD 파이프라인
+claude -p "테스트 실행하고 결과 요약" \
+  --allowedTools "Bash(npm test *),Read" \
+  --output-format json \
+  --max-budget-usd 1.00
+```

@@ -1,0 +1,75 @@
+---
+title: "모델 선택과 성능 제어"
+level: 6
+slug: "level-06-models"
+category: "제어"
+description: "모델 별칭, 노력 수준, Fast Mode, 1M 컨텍스트 활용"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/overview"
+docsNote: "모델별 상세 스펙은 공식 문서 참조"
+prerequisites: ["level-03-settings"]
+estimatedMinutes: 20
+tags: ["모델", "성능", "Fast Mode", "컨텍스트"]
+---
+
+## 사용 가능한 모델 별칭
+
+| 별칭 | 모델 | 특징 |
+|------|------|------|
+| `opus` | Opus 4.6 | 최고 성능, 복잡한 작업 |
+| `sonnet` | Sonnet 4.6 | 균형 잡힌 성능/비용 |
+| `haiku` | Haiku 4.5 | 빠르고 저렴 |
+| `default` | 계정 타입에 따라 다름 | Max/Team Premium → Opus |
+| `sonnet[1m]` | Sonnet + 1M 컨텍스트 | 대규모 코드베이스 |
+| `opus[1m]` | Opus + 1M 컨텍스트 | 최대 성능 + 최대 컨텍스트 |
+| `opusplan` | Opus(계획) + Sonnet(실행) | 하이브리드 전략 |
+
+## 모델 설정 방법 (우선순위 순)
+
+```bash
+# 1. 세션 중 변경
+/model opus          # 슬래시 커맨드 (←→ 로 노력 수준 조절)
+
+# 2. 시작 시 지정
+claude --model opus
+
+# 3. 환경 변수
+export ANTHROPIC_MODEL=opus
+
+# 4. settings.json → { "model": "opus" }
+```
+
+## 노력 수준 (Effort Level)
+
+Opus 4.6의 추론 깊이를 조절한다:
+- **low**: 빠르고 간단한 응답
+- **medium**: 적당한 추론
+- **high** (기본): 깊은 사고
+
+```bash
+claude --effort medium
+# 또는 환경 변수
+export CLAUDE_CODE_EFFORT_LEVEL=medium
+```
+
+## Fast Mode
+
+같은 Opus 4.6 모델이지만 **2.5배 빠른 출력**. 토큰당 비용 더 높음.
+
+```bash
+/fast              # 세션 중 토글
+# 활성화 시 번개 아이콘 표시
+# 레이트 리밋 시 자동으로 일반 모드 폴백
+```
+
+## 1M 토큰 컨텍스트
+
+Opus/Sonnet에서 최대 100만 토큰 컨텍스트 윈도우 사용 가능:
+
+```bash
+/model sonnet[1m]   # 또는 opus[1m]
+# 200K까지는 일반 요금, 이후 장문 요금 적용
+```
+
+비활성화: `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`

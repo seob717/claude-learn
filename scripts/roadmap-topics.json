@@ -1,0 +1,265 @@
+{
+  "source": "roadmap.sh/r/claude-code",
+  "lastUpdated": "2026-03-02",
+  "topics": [
+    {
+      "id": "what-is-vibe-coding",
+      "name": "What is vibe coding?",
+      "category": "Introduction",
+      "coveredBy": ["level-01-basics.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "what-is-code-agent",
+      "name": "What is a code agent?",
+      "category": "Introduction",
+      "coveredBy": ["level-01-basics.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "install-claude-code",
+      "name": "Install Claude Code",
+      "category": "Getting Started",
+      "coveredBy": ["level-01-basics.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "configure-claude-code",
+      "name": "Configure Claude Code",
+      "category": "Getting Started",
+      "coveredBy": ["level-02-claude-md.mdx", "level-03-settings.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "claude-md-files",
+      "name": "CLAUDE.md Files",
+      "category": "Configuration",
+      "coveredBy": ["level-02-claude-md.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "settings-json",
+      "name": "settings.json",
+      "category": "Configuration",
+      "coveredBy": ["level-03-settings.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "slash-commands",
+      "name": "Slash Commands",
+      "category": "Basic Usage",
+      "coveredBy": ["level-04-slash-commands.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "keyboard-shortcuts",
+      "name": "Keyboard Shortcuts",
+      "category": "Basic Usage",
+      "coveredBy": ["level-05-keyboard-shortcuts.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "model-selection",
+      "name": "Model Selection",
+      "category": "Basic Usage",
+      "coveredBy": ["level-06-models.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "hooks",
+      "name": "Hooks",
+      "category": "Intermediate",
+      "coveredBy": ["level-07-hooks.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "mcp-servers",
+      "name": "MCP Servers",
+      "category": "Intermediate",
+      "coveredBy": ["level-08-mcp.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "context-management",
+      "name": "Context Management",
+      "category": "Intermediate",
+      "coveredBy": ["level-09-sessions.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "sdk-headless",
+      "name": "SDK / Headless Mode",
+      "category": "Advanced",
+      "coveredBy": ["level-10-sdk.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "output-styles",
+      "name": "Output Styles",
+      "category": "Advanced",
+      "coveredBy": ["level-10-sdk.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "git-worktree",
+      "name": "Git Worktree",
+      "category": "Intermediate",
+      "coveredBy": ["level-11-worktree.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "ide-integration",
+      "name": "IDE Integration",
+      "category": "Intermediate",
+      "coveredBy": ["level-12-ide.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "custom-agents",
+      "name": "Custom Agents & Skills",
+      "category": "Advanced",
+      "coveredBy": ["level-13-agents-skills.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "agent-teams",
+      "name": "Agent Teams",
+      "category": "Advanced",
+      "coveredBy": ["level-14-agent-teams.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "multiple-claude",
+      "name": "Multiple Claude Instances",
+      "category": "Advanced",
+      "coveredBy": ["level-14-agent-teams.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "claude-cowork",
+      "name": "Claude Cowork",
+      "category": "Advanced",
+      "coveredBy": ["level-14-agent-teams.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "plugins",
+      "name": "Plugins Ecosystem",
+      "category": "Advanced",
+      "coveredBy": ["level-15-plugins.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "sandbox",
+      "name": "Sandbox",
+      "category": "Advanced",
+      "coveredBy": ["level-17-deep-sandbox.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "advanced-cli",
+      "name": "Advanced CLI Options",
+      "category": "Advanced",
+      "coveredBy": ["level-18-deep-advanced-cli.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "plan-mode",
+      "name": "Plan Mode",
+      "category": "Advanced",
+      "coveredBy": ["level-18-deep-advanced-cli.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "permission-modes",
+      "name": "Permission Modes",
+      "category": "Configuration",
+      "coveredBy": ["level-03-settings.mdx", "level-22-security.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "large-codebase",
+      "name": "Large Codebase Strategy",
+      "category": "Advanced",
+      "coveredBy": ["level-19-deep-large-codebase.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "scaling-claude",
+      "name": "Scaling Claude",
+      "category": "Advanced",
+      "coveredBy": ["level-19-deep-large-codebase.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompting Best Practices",
+      "category": "Best Practices",
+      "coveredBy": ["level-20-prompt-engineering.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "claude-workflow",
+      "name": "Claude Workflow",
+      "category": "Best Practices",
+      "coveredBy": ["level-20-prompt-engineering.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "understand-pricing",
+      "name": "Understand Claude Pricing",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "reduce-token-usage",
+      "name": "Reduce Token Usage",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "manage-context-window",
+      "name": "Manage Context Window",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx", "level-09-sessions.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "thinking-mode",
+      "name": "Use Thinking Mode Carefully",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "use-compact",
+      "name": "Use /compact",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx", "level-19-deep-large-codebase.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "subagents-hooks",
+      "name": "Use Subagents and Hooks",
+      "category": "Cost & Optimization",
+      "coveredBy": ["level-21-cost-optimization.mdx", "level-07-hooks.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "security-best-practices",
+      "name": "Security Best Practices",
+      "category": "Best Practices",
+      "coveredBy": ["level-22-security.mdx"],
+      "coverage": "full"
+    },
+    {
+      "id": "non-coding-tasks",
+      "name": "Non-coding Tasks",
+      "category": "Use Cases",
+      "coveredBy": ["level-23-non-coding.mdx"],
+      "coverage": "full"
+    }
+  ]
+}

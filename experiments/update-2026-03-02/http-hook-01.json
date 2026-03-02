@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  // HTTP Hook 예시: Claude 응답 완료 시 외부 웹훅으로 알림
+  // 실제 사용 시 allowedDomains와 URL을 본인 서버로 변경하세요
+
+  "hooks": {
+    // 보안: 허용할 도메인 목록 (필수)
+    // - 여기에 없는 도메인으로의 HTTP 요청은 차단됨
+    // - 와일드카드(*.example.com) 불가 — 정확한 도메인만
+    "allowedDomains": [
+      "hooks.slack.com",
+      "my-server.example.com"
+    ],
+
+    // Stop 이벤트: Claude가 응답을 완료했을 때
+    "Stop": [
+      {
+        "hooks": [
+          {
+            // 기존 command 방식 (비교용)
+            // "type": "command",
+            // "command": "curl -X POST https://hooks.slack.com/... -d '{\"text\": \"완료\"}'"
+
+            // 새로운 HTTP Hook 방식
+            "type": "http",
+            "url": "https://hooks.slack.com/services/T00/B00/xxxx",
+            "method": "POST",
+            "headers": {
+              // 환경 변수 자동 치환 — 키가 명령어에 노출되지 않음
+              "Authorization": "Bearer ${SLACK_WEBHOOK_TOKEN}",
+              "Content-Type": "application/json"
+            },
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+
+    // PostToolUse 이벤트: 파일 변경 시 로깅 서버에 기록
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "http",
+            "url": "https://my-server.example.com/log",
+            "method": "POST",
+            "headers": {
+              "X-API-Key": "${MY_SERVER_API_KEY}"
+            },
+            "timeout": 3000
+          }
+        ]
+      }
+    ]
+  }
+}

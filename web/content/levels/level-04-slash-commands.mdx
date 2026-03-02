@@ -1,0 +1,79 @@
+---
+title: "슬래시 커맨드"
+level: 4
+slug: "level-04-slash-commands"
+category: "기초"
+description: "내장 슬래시 커맨드 전체 목록과 활용법"
+createdAt: "2026-03-02"
+updatedAt: "2026-03-02"
+docsUrl: "https://code.claude.com/docs/ko/slash-commands"
+docsNote: "슬래시 커맨드 전체 레퍼런스는 공식 문서 참조"
+prerequisites: ["level-01-basics"]
+estimatedMinutes: 20
+tags: ["커맨드", "세션", "설정"]
+---
+
+## 정보 확인
+
+| 커맨드 | 용도 |
+|--------|------|
+| `/cost` | 토큰 사용량 통계 |
+| `/context` | 컨텍스트 사용량 시각화 (컬러 그리드) |
+| `/status` | 버전, 모델, 계정, 연결 상태 |
+| `/usage` | 플랜 사용 한도, 레이트 리밋 |
+| `/stats` | 일일 사용량, 세션 히스토리, 연속 사용일 |
+
+## 세션 관리
+
+| 커맨드 | 용도 |
+|--------|------|
+| `/clear` | 대화 초기화 (세션은 유지, 캐시된 스킬도 리셋) |
+| `/compact [지시]` | 컨텍스트 압축 (선택적 포커스) |
+| `/resume [세션]` | 이전 세션 재개 (대화형 피커) |
+| `/rename [이름]` | 현재 세션 이름 지정 |
+| `/rewind` | 대화/코드를 이전 시점으로 되감기 |
+| `/copy` | 마지막 응답 클립보드 복사 (코드 블록 선택 피커 지원) |
+| `/export [파일]` | 대화를 파일로 내보내기 |
+| `/tasks` | 백그라운드 작업 관리 |
+
+## 설정 변경
+
+| 커맨드 | 용도 |
+|--------|------|
+| `/model` | 모델 선택 (좌우 화살표로 노력 수준 조절) |
+| `/permissions` | 권한 확인/수정 |
+| `/config` | 설정 UI 열기 |
+| `/memory` | CLAUDE.md 메모리 편집 |
+| `/vim` | vim 스타일 편집 토글 |
+| `/theme` | 컬러 테마 변경 |
+| `/keybindings` | 키바인딩 설정 |
+| `/statusline` | 상태바 설정 |
+
+## 특수 기능
+
+| 커맨드 | 용도 |
+|--------|------|
+| `/plan` | 플랜 모드 진입 (읽기 전용 탐색 → 계획 제시) |
+| `/fast` | 빠른 모드 토글 (2.5배 속도, 같은 모델) |
+| `/init` | 프로젝트 CLAUDE.md 초기화 |
+| `/doctor` | 설치 상태 진단 |
+| `/mcp` | MCP 서버 연결 관리, OAuth 인증 |
+| `/debug [설명]` | 현재 세션 트러블슈팅 |
+| `/teleport` | claude.ai 원격 세션을 로컬로 가져오기 |
+| `/desktop` | CLI 세션을 데스크톱 앱으로 핸드오프 |
+| `/hooks` | Hook 설정 관리 |
+| `/agents` | 서브에이전트 관리 |
+| `/todos` | TODO 항목 목록 |
+| `/simplify` | 최근 변경 코드를 간결하게 리팩토링 |
+
+## 실습: 주요 커맨드 체험
+
+```bash
+# 세션 안에서 직접 입력해보세요:
+/status          # 현재 환경 정보 확인
+/cost            # 토큰 사용량 확인
+/context         # 컨텍스트 시각화
+/model           # 모델 선택 (←→ 로 노력 수준 조절)
+/compact         # 컨텍스트 압축해보기
+/mcp             # MCP 서버 상태 확인
+```
